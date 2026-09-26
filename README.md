@@ -5,7 +5,10 @@ Boutique en ligne d'une pâtisserie maison à Québec. Voir [SPEC.md](SPEC.md) p
 ```
 patisserie/
 ├── server/   API Express + MongoDB (étape 1 — terminée)
-├── client/   React + Vite (étape 2 — à venir)
+├── client/   React + Vite (étape 2 : identité visuelle — terminée)
+├── brand/    Logo (SVG) et planche de présentation
+├── PROJET.md Document de référence du projet
+├── STYLE.md  Identité visuelle et interface
 ├── SPEC.md
 └── render.yaml
 ```
@@ -23,6 +26,15 @@ npm run dev                 # http://localhost:4000/api/health
 
 Sans clés Stripe, Twilio ou Resend, tout fonctionne en **mode simulé** : les paiements sont
 pré-autorisés automatiquement, SMS et courriels s'affichent dans la console.
+
+## Démarrer le site en local
+
+```bash
+cd client
+npm install
+npm run dev                 # http://localhost:5173 (les appels /api vont vers :4000)
+npm run marque              # régénère logo, favicon et icônes (si le nom change dans src/config/brand.js)
+```
 
 ## Tests
 

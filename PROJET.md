@@ -398,13 +398,14 @@ Montants en cents. Erreurs au format `{ error: 'code', message, details? }` (`de
 
 ---
 
-## 14. Identité visuelle — À DÉFINIR
+## 14. Identité visuelle — DÉFINIE (voir STYLE.md)
 
-Section à compléter après les réponses de Hamid aux questions sur le style (voir la section 19). En attendant, principes retenus :
-- Ambiance **artisanale, chaleureuse et haut de gamme**, cohérente avec une pâtisserie maison.
-- Aucune photo n'existe : prévoir des **illustrations ou motifs de remplacement** (SVG simples, couleurs de la marque) plutôt que des photos génériques, et un emplacement photo facile à remplir ensuite.
-- Logo : à créer (wordmark « Pâtisserie » + petit symbole), fourni en SVG, décliné clair et foncé, favicon.
-- Définir les couleurs et typographies sous forme de **variables CSS** (tokens) dans un seul fichier pour pouvoir changer toute la charte en un endroit.
+La charte complète est dans **STYLE.md**, qui fait foi pour tout ce qui touche au visuel. Mise en œuvre (étape 2) :
+- **Jetons CSS** : `client/src/styles/tokens.css` (seul endroit où les couleurs sont écrites) ; styles de base dans `client/src/styles/base.css`.
+- **Logo** : cerise minimaliste + « Pâtisserie » en DM Sans 500 vectorisée. Fichiers dans `brand/` (`logo.svg`, `logo-white.svg`, `logo-mark.svg`, `favicon.svg`, `planche-logo.png`), copies utilisées par l'application dans `client/src/assets/brand/`.
+- **Icônes et partage** : `client/public/` (`favicon.svg`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`, `og-image.png`, `manifest.webmanifest`).
+- **Tout est régénéré** par `cd client && npm run marque` à partir du nom défini dans `client/src/config/brand.js` (à relancer si le nom change).
+- **Illustrations de remplacement** : composants SVG dans `client/src/assets/illustrations/` (gâteau, croissant, macarons, bûche, carte-cadeau, cerise par défaut, accueil 16:9, assiette vide). `illustrationPour({ slugCategorie, estCarteCadeau })` choisit l'illustration d'un produit sans photo.
 
 ---
 
@@ -438,7 +439,7 @@ Coûts mensuels estimés : Render ~7 $ US, Twilio quelques $, le reste gratuit ;
 | # | Étape | État |
 |---|---|---|
 | 1 | API Express : modèles, catalogue, commandes, Stripe, Interac, promos, cartes-cadeaux, admin, tests | ✅ Fait |
-| 2 | Identité visuelle : tokens CSS, logo SVG, illustrations de remplacement | ⏳ Après les réponses sur le style |
+| 2 | Identité visuelle : tokens CSS, logo SVG, illustrations de remplacement | ✅ Fait |
 | 3 | Frontend public : structure, i18n, catalogue, fiche produit, panier | À faire |
 | 4 | Paiement : checkout, Stripe Payment Element, Interac, confirmation et suivi, annulation | À faire |
 | 5 | Comptes clients | À faire |
@@ -459,7 +460,19 @@ Choix d'une date par le client dans un calendrier avec capacité maximale par jo
 
 ## 19. Questions ouvertes
 
-**Style (à poser à Hamid, puis compléter la section 14)** : ambiance, couleurs, typographies, références, logo, ton des textes.
+**Style** : réglé par STYLE.md.
+
+**Décisions prises pendant la construction** (modifiables) :
+- *Étape 2 — logo* : le dossier `brand/` annoncé par STYLE.md n'existait pas dans le dépôt ; avec l'accord de Hamid, le logo a été créé d'après STYLE.md §4 et est généré par `client/scripts/generer-marque.mjs` (texte vectorisé depuis DM Sans 500, aucune police requise).
+- *Étape 2 — jetons* : trois jetons ajoutés à ceux de STYLE.md §12, sans nouvelle couleur : `--color-overlay` (voile des modales, valeur de STYLE.md §7.9), `--container-text` (680 px) et `--gutter` (marges latérales 16 / 24 / 32 px de STYLE.md §6).
+- *Étape 2 — illustrations* : l'illustration d'un produit sans photo est choisie d'après des mots-clés du slug de sa catégorie (`gateau`, `viennoiserie`, `macaron`, `fete`/`noel`, `cadeau`…), pour résister aux renommages ; catégorie inconnue → la cerise de la marque.
+- *Étape 2 — page `/charte`* : page de contrôle de la charte (outil de développement), à retirer ou réserver au développement à l'étape 3.
+
+**À trancher avec Hamid** :
+- *Police* : STYLE.md impose le lien Google Fonts. Chaque visite transmet alors l'adresse IP du visiteur à Google (sous-traitant à citer dans la politique de confidentialité, Loi 25). Alternative : héberger DM Sans avec le site (`@fontsource/dm-sans`, déjà utilisé pour générer le logo), sans appel externe.
+- *Recherche de l'en-tête* (STYLE.md §7.1) : l'API n'a pas de paramètre de recherche ; proposition : filtrer côté navigateur (catalogue petit).
+- *Photo de profil du client* (STYLE.md §7.1) : le modèle User n'a pas de champ photo ; proposition : initiales seulement en v1.
+- *Section « Conservation » de la fiche produit* (STYLE.md §9) : aucun champ dans le modèle Product ; proposition : ajouter `storage {fr,en}` ou un texte générique.
 
 **À confirmer avec la cliente plus tard (valeurs par défaut en place, modifiables dans l'admin)** :
 - Vrais produits, prix, variantes et délais.

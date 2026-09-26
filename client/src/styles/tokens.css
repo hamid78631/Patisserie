@@ -1,0 +1,71 @@
+/*
+ * Jetons de l'identité visuelle (STYLE.md §12).
+ * Seul fichier où les couleurs, tailles et rayons sont écrits en dur :
+ * pour changer toute la charte, modifier uniquement ce fichier.
+ */
+:root {
+  /* Couleurs de marque */
+  --color-red: #C8102E;
+  --color-red-hover: #A80D26;
+  --color-wine: #6B0F1A;
+  --color-wine-hover: #520B14;
+  --color-blush: #F7E4E2;
+  --color-white: #FFFFFF;
+
+  /* Neutres */
+  --color-ink: #2A1215;
+  --color-ink-muted: #6E5A5C;
+  --color-line: #EEDFDD;
+  --color-surface: #FDF7F6;
+
+  /* Fonctionnelles */
+  --color-success: #2E6B4F;  --color-success-bg: #E8F2EC;
+  --color-warning: #8A5A00;  --color-warning-bg: #FBF1DE;
+  --color-danger: #C8102E;   --color-danger-bg: #F7E4E2;
+
+  /* Voile des fenêtres modales (STYLE.md §7.9) */
+  --color-overlay: rgba(42, 18, 21, .4);
+
+  /* Typographie */
+  --font-sans: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --text-display: clamp(2.25rem, 1.6rem + 3vw, 3.5rem);
+  --text-h1: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
+  --text-h2: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);
+  --text-h3: clamp(1.125rem, 1.08rem + 0.2vw, 1.25rem);
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-overline: 0.75rem;
+
+  /* Formes */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-full: 999px;
+  --shadow: 0 1px 2px rgba(42, 18, 21, .06), 0 4px 16px rgba(42, 18, 21, .06);
+
+  /* Espacements */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px; --space-24: 96px;
+
+  --container: 1200px;
+  --container-text: 680px;
+  --gutter: 16px;
+  --header-h: 72px;
+  --transition: 180ms ease-out;
+}
+
+@media (min-width: 768px) {
+  :root { --gutter: 24px; }
+}
+
+@media (min-width: 1024px) {
+  :root { --gutter: 32px; }
+}
+
+@media (max-width: 767px) {
+  :root { --header-h: 56px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

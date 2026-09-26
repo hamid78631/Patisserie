@@ -1,0 +1,29 @@
+/*
+ * Langage graphique des illustrations (STYLE.md §8) :
+ * trait bordeaux de 1,75 px (constant quelle que soit la taille affichée),
+ * aplats rouge vif, bordeaux ou blanc, fond rose poudré. Aucun dégradé, aucune ombre.
+ */
+.illustration {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.illustration .fond { fill: var(--color-blush); }
+
+.illustration .trait,
+.illustration .blanc,
+.illustration .rouge,
+.illustration .bordeaux {
+  stroke: var(--color-wine);
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.illustration .trait { fill: none; }
+.illustration .blanc { fill: var(--color-white); }
+.illustration .rouge { fill: var(--color-red); }
+.illustration .bordeaux { fill: var(--color-wine); }
+.illustration .reflet { fill: var(--color-white); stroke: none; }

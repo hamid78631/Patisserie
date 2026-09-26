@@ -1,0 +1,119 @@
+.page { padding-block: var(--space-8) var(--space-24); }
+
+.entete {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-bottom: var(--space-8);
+  border-bottom: 1px solid var(--color-line);
+}
+.logoEntete { height: 32px; width: auto; }
+
+.section { padding-block: var(--space-12); border-bottom: 1px solid var(--color-line); }
+.section > h2 { margin-bottom: var(--space-6); }
+
+/* Bannière : illustration au-dessus du texte sur mobile, à droite sur ordinateur */
+.hero {
+  display: grid;
+  gap: var(--space-8);
+  padding-block: var(--space-12);
+  border-bottom: 1px solid var(--color-line);
+}
+.heroTexte { display: grid; gap: var(--space-4); align-content: center; }
+.heroImage { order: -1; border-radius: var(--radius-lg); overflow: hidden; }
+@media (min-width: 1024px) {
+  .hero { grid-template-columns: 1fr 1fr; gap: var(--space-12); }
+  .heroImage { order: 0; }
+}
+
+.palette {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6) var(--space-4);
+}
+@media (min-width: 768px) { .palette { grid-template-columns: repeat(4, 1fr); } }
+.palette li { display: grid; gap: var(--space-1); align-content: start; }
+.pastille {
+  display: block;
+  height: 72px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-line);
+  margin-bottom: var(--space-2);
+}
+.palette strong { font-weight: 500; }
+
+.typo { display: grid; gap: var(--space-4); max-width: var(--container-text); }
+
+.logos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+@media (min-width: 768px) { .logos { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .logos { grid-template-columns: repeat(3, 1fr); } }
+.logoCadre {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  padding: var(--space-8);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+.logoCadre img { height: 40px; width: auto; }
+.logoCadre img.cerise { height: 64px; }
+.fondRose { background: var(--color-blush); border-color: var(--color-blush); }
+.fondRouge { background: var(--color-red); border-color: var(--color-red); }
+.fondBordeaux { background: var(--color-wine); border-color: var(--color-wine); }
+.favicons { display: flex; align-items: end; gap: var(--space-4); }
+.logoCadre .favicons img { height: auto; }
+
+/* Grille de cartes produit : 2, 3 puis 4 colonnes (STYLE.md §7.4) */
+.grille {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6) var(--space-4);
+}
+@media (min-width: 768px) { .grille { grid-template-columns: repeat(3, 1fr); gap: var(--space-8) var(--space-6); } }
+@media (min-width: 1024px) { .grille { grid-template-columns: repeat(4, 1fr); } }
+
+.carte {
+  display: grid;
+  gap: var(--space-1);
+  align-content: start;
+  border-radius: var(--radius-lg);
+  transition: transform var(--transition);
+}
+.image {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--space-2);
+  transition: box-shadow var(--transition);
+}
+.carte:hover { transform: translateY(-2px); }
+.carte:hover .image { box-shadow: var(--shadow); }
+.badge {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  color: var(--color-wine);
+  font-size: var(--text-overline);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.vide { display: grid; justify-items: center; gap: var(--space-4); text-align: center; }
+.videImage { width: 200px; }
