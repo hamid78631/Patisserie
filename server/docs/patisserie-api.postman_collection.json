@@ -6,7 +6,7 @@
   },
   "variable": [
     {
-      "key": "baseUrl",
+      "key": "patisserieApi",
       "value": "http://localhost:4000/api"
     },
     {
@@ -29,9 +29,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/health",
+              "raw": "{{patisserieApi}}/health",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "health"
@@ -57,9 +57,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/settings",
+              "raw": "{{patisserieApi}}/settings",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "settings"
@@ -94,9 +94,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/categories",
+              "raw": "{{patisserieApi}}/categories",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "categories"
@@ -122,9 +122,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/products",
+              "raw": "{{patisserieApi}}/products",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "products"
@@ -159,9 +159,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/products?category=gateaux",
+              "raw": "{{patisserieApi}}/products?category=gateaux",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "products"
@@ -192,9 +192,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/products?featured=true",
+              "raw": "{{patisserieApi}}/products?featured=true",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "products"
@@ -225,9 +225,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/products?seasonal=true",
+              "raw": "{{patisserieApi}}/products?seasonal=true",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "products"
@@ -259,9 +259,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/products/fraisier",
+              "raw": "{{patisserieApi}}/products/fraisier",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "products",
@@ -288,9 +288,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/products/nexiste-pas",
+              "raw": "{{patisserieApi}}/products/nexiste-pas",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "products",
@@ -327,9 +327,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/cart/quote",
+              "raw": "{{patisserieApi}}/cart/quote",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "cart",
@@ -372,9 +372,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/cart/quote",
+              "raw": "{{patisserieApi}}/cart/quote",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "cart",
@@ -415,9 +415,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/cart/quote",
+              "raw": "{{patisserieApi}}/cart/quote",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "cart",
@@ -458,9 +458,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/cart/quote",
+              "raw": "{{patisserieApi}}/cart/quote",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "cart",
@@ -501,9 +501,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/cart/quote",
+              "raw": "{{patisserieApi}}/cart/quote",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "cart",
@@ -544,9 +544,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/cart/quote",
+              "raw": "{{patisserieApi}}/cart/quote",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "cart",
@@ -587,9 +587,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/cart/quote",
+              "raw": "{{patisserieApi}}/cart/quote",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "cart",
@@ -630,9 +630,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/cart/quote",
+              "raw": "{{patisserieApi}}/cart/quote",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "cart",
@@ -679,9 +679,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/orders",
+              "raw": "{{patisserieApi}}/orders",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "orders"
@@ -722,9 +722,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/orders/track/{{commandeStripeNumero}}?t={{commandeStripeJeton}}",
+              "raw": "{{patisserieApi}}/orders/track/{{commandeStripeNumero}}?t={{commandeStripeJeton}}",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "orders",
@@ -759,9 +759,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/orders/track/{{commandeStripeNumero}}",
+              "raw": "{{patisserieApi}}/orders/track/{{commandeStripeNumero}}",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "orders",
@@ -793,9 +793,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/orders",
+              "raw": "{{patisserieApi}}/orders",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "orders"
@@ -837,9 +837,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/orders",
+              "raw": "{{patisserieApi}}/orders",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "orders"
@@ -881,9 +881,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/orders/track/{{commandeAnnuleeNumero}}/cancel",
+              "raw": "{{patisserieApi}}/orders/track/{{commandeAnnuleeNumero}}/cancel",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "orders",
@@ -928,9 +928,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/giftcards/check",
+              "raw": "{{patisserieApi}}/giftcards/check",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "giftcards",
@@ -977,9 +977,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/auth/register",
+              "raw": "{{patisserieApi}}/auth/register",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "auth",
@@ -1023,9 +1023,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/auth/me",
+              "raw": "{{patisserieApi}}/auth/me",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "auth",
@@ -1057,9 +1057,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/account",
+              "raw": "{{patisserieApi}}/account",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "account"
@@ -1098,9 +1098,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/orders",
+              "raw": "{{patisserieApi}}/orders",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "orders"
@@ -1134,9 +1134,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/account/orders",
+              "raw": "{{patisserieApi}}/account/orders",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "account",
@@ -1168,9 +1168,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/account/password",
+              "raw": "{{patisserieApi}}/account/password",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "account",
@@ -1205,9 +1205,9 @@
             "method": "POST",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/auth/logout",
+              "raw": "{{patisserieApi}}/auth/logout",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "auth",
@@ -1238,9 +1238,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/auth/login",
+              "raw": "{{patisserieApi}}/auth/login",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "auth",
@@ -1275,9 +1275,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/orders",
+              "raw": "{{patisserieApi}}/admin/orders",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -1303,9 +1303,9 @@
             "method": "POST",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/auth/logout",
+              "raw": "{{patisserieApi}}/auth/logout",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "auth",
@@ -1336,9 +1336,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/auth/login",
+              "raw": "{{patisserieApi}}/auth/login",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "auth",
@@ -1379,9 +1379,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/orders",
+              "raw": "{{patisserieApi}}/admin/orders",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -1412,9 +1412,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/auth/login",
+              "raw": "{{patisserieApi}}/auth/login",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "auth",
@@ -1449,9 +1449,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/orders?status=received",
+              "raw": "{{patisserieApi}}/admin/orders?status=received",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -1483,9 +1483,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/orders?status=active",
+              "raw": "{{patisserieApi}}/admin/orders?status=active",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -1517,9 +1517,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/orders?search=tremblay&page=1&limit=25",
+              "raw": "{{patisserieApi}}/admin/orders?search=tremblay&page=1&limit=25",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -1559,9 +1559,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/orders/{{commandeStripeId}}",
+              "raw": "{{patisserieApi}}/admin/orders/{{commandeStripeId}}",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -1594,9 +1594,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/orders/{{commandeStripeId}}/confirm",
+              "raw": "{{patisserieApi}}/admin/orders/{{commandeStripeId}}/confirm",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -1640,9 +1640,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/orders/{{commandeStripeId}}/schedule",
+              "raw": "{{patisserieApi}}/admin/orders/{{commandeStripeId}}/schedule",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -1684,9 +1684,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/orders/{{commandeStripeId}}/status",
+              "raw": "{{patisserieApi}}/admin/orders/{{commandeStripeId}}/status",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -1728,9 +1728,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/orders/{{commandeStripeId}}/status",
+              "raw": "{{patisserieApi}}/admin/orders/{{commandeStripeId}}/status",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -1772,9 +1772,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/orders/{{commandeStripeId}}/notes",
+              "raw": "{{patisserieApi}}/admin/orders/{{commandeStripeId}}/notes",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -1816,9 +1816,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/orders/{{commandeStripeId}}/refund",
+              "raw": "{{patisserieApi}}/admin/orders/{{commandeStripeId}}/refund",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -1861,9 +1861,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/orders/{{commandeStripeId}}/status",
+              "raw": "{{patisserieApi}}/admin/orders/{{commandeStripeId}}/status",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -1905,9 +1905,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/orders/{{commandeStripeId}}/status",
+              "raw": "{{patisserieApi}}/admin/orders/{{commandeStripeId}}/status",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -1944,9 +1944,9 @@
             "method": "POST",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/orders/{{commandeInteracId}}/interac-received",
+              "raw": "{{patisserieApi}}/admin/orders/{{commandeInteracId}}/interac-received",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -1980,9 +1980,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/orders/{{commandeInteracId}}/cancel",
+              "raw": "{{patisserieApi}}/admin/orders/{{commandeInteracId}}/cancel",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2020,9 +2020,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/stats?days=30",
+              "raw": "{{patisserieApi}}/admin/stats?days=30",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2060,9 +2060,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/categories",
+              "raw": "{{patisserieApi}}/admin/categories",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2094,9 +2094,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/categories",
+              "raw": "{{patisserieApi}}/admin/categories",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2137,9 +2137,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/categories/{{categorieId}}",
+              "raw": "{{patisserieApi}}/admin/categories/{{categorieId}}",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2180,9 +2180,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/products",
+              "raw": "{{patisserieApi}}/admin/products",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2224,9 +2224,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/products/{{produitId}}",
+              "raw": "{{patisserieApi}}/admin/products/{{produitId}}",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2267,9 +2267,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/products/{{produitId}}/active",
+              "raw": "{{patisserieApi}}/admin/products/{{produitId}}/active",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2306,9 +2306,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/products?search=sabl",
+              "raw": "{{patisserieApi}}/admin/products?search=sabl",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2340,9 +2340,9 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/categories/{{categorieId}}",
+              "raw": "{{patisserieApi}}/admin/categories/{{categorieId}}",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2369,9 +2369,9 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/products/{{produitId}}",
+              "raw": "{{patisserieApi}}/admin/products/{{produitId}}",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2398,9 +2398,9 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/categories/{{categorieId}}",
+              "raw": "{{patisserieApi}}/admin/categories/{{categorieId}}",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2432,9 +2432,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/promos",
+              "raw": "{{patisserieApi}}/admin/promos",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2484,9 +2484,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/promos",
+              "raw": "{{patisserieApi}}/admin/promos",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2526,9 +2526,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/promos/{{promoId}}",
+              "raw": "{{patisserieApi}}/admin/promos/{{promoId}}",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2564,9 +2564,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/promos",
+              "raw": "{{patisserieApi}}/admin/promos",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2592,9 +2592,9 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/promos/{{promoId}}",
+              "raw": "{{patisserieApi}}/admin/promos/{{promoId}}",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2632,9 +2632,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/orders",
+              "raw": "{{patisserieApi}}/orders",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "orders"
@@ -2671,9 +2671,9 @@
             "method": "POST",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/orders/{{commandeCarteId}}/interac-received",
+              "raw": "{{patisserieApi}}/admin/orders/{{commandeCarteId}}/interac-received",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2709,9 +2709,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/giftcards/check",
+              "raw": "{{patisserieApi}}/giftcards/check",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "giftcards",
@@ -2752,9 +2752,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/cart/quote",
+              "raw": "{{patisserieApi}}/cart/quote",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "cart",
@@ -2795,9 +2795,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/giftcards",
+              "raw": "{{patisserieApi}}/admin/giftcards",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2838,9 +2838,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/giftcards/{{carteManuelleId}}",
+              "raw": "{{patisserieApi}}/admin/giftcards/{{carteManuelleId}}",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2876,9 +2876,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/giftcards?search=GC-",
+              "raw": "{{patisserieApi}}/admin/giftcards?search=GC-",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2916,9 +2916,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/settings",
+              "raw": "{{patisserieApi}}/admin/settings",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2949,9 +2949,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/settings",
+              "raw": "{{patisserieApi}}/admin/settings",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -2991,9 +2991,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/cart/quote",
+              "raw": "{{patisserieApi}}/cart/quote",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "cart",
@@ -3034,9 +3034,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/settings",
+              "raw": "{{patisserieApi}}/admin/settings",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -3076,9 +3076,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/settings",
+              "raw": "{{patisserieApi}}/admin/settings",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -3113,9 +3113,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/users",
+              "raw": "{{patisserieApi}}/admin/users",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -3146,9 +3146,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/users",
+              "raw": "{{patisserieApi}}/admin/users",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -3193,9 +3193,9 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/users/{{admin2Id}}",
+              "raw": "{{patisserieApi}}/admin/users/{{admin2Id}}",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -3222,9 +3222,9 @@
             "method": "POST",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/admin/uploads/signature",
+              "raw": "{{patisserieApi}}/admin/uploads/signature",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "admin",
@@ -3252,9 +3252,9 @@
             "method": "POST",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/auth/logout",
+              "raw": "{{patisserieApi}}/auth/logout",
               "host": [
-                "{{baseUrl}}"
+                "{{patisserieApi}}"
               ],
               "path": [
                 "auth",

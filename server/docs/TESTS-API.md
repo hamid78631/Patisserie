@@ -28,7 +28,7 @@ npm run dev               # http://localhost:4000/api/health doit répondre {"ok
 ```
 
 L'administratrice `admin@exemple.com` / `motdepasse123` est celle utilisée par la collection.
-Si vous en choisissez une autre, changez les variables `adminEmail` et `adminPassword` de la collection.
+Si vous en choisissez une autre, changez les variables `adminEmail` et `adminPassword` de la collection (onglet **Variables**). L'adresse de l'API est dans la variable `patisserieApi` (`http://localhost:4000/api`).
 
 ## 3. Importer et lancer la collection
 
