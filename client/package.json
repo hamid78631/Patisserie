@@ -13,11 +13,11 @@
     "node": ">=20"
   },
   "dependencies": {
+    "@fontsource/dm-sans": "^5.3.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
   },
   "devDependencies": {
-    "@fontsource/dm-sans": "^5.3.0",
     "@vitejs/plugin-react": "^6.1.1",
     "opentype.js": "^2.0.0",
     "playwright-core": "^1.63.0",

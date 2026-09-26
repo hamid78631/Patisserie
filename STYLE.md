@@ -74,6 +74,8 @@ Une seule famille, simple, douce et très lisible : **DM Sans** (Google Fonts, g
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 ```
 
+> **Décision (étape 2)** : la police est **hébergée avec le site** (paquet `@fontsource/dm-sans`, importé dans `client/src/main.jsx`) plutôt que chargée depuis Google Fonts avec le lien ci-dessus, pour ne transmettre aucune donnée de visiteur à Google (Loi 25). Voir PROJET.md §19.
+
 Graisses : **400** (texte), **500** (titres, boutons, logo), **600** (rare : prix, chiffres clés). Jamais de gras 700 ou plus.
 
 | Style | Taille mobile → ordinateur | Graisse | Interligne | Usage |

@@ -466,10 +466,10 @@ Choix d'une date par le client dans un calendrier avec capacité maximale par jo
 - *Étape 2 — logo* : le dossier `brand/` annoncé par STYLE.md n'existait pas dans le dépôt ; avec l'accord de Hamid, le logo a été créé d'après STYLE.md §4 et est généré par `client/scripts/generer-marque.mjs` (texte vectorisé depuis DM Sans 500, aucune police requise).
 - *Étape 2 — jetons* : trois jetons ajoutés à ceux de STYLE.md §12, sans nouvelle couleur : `--color-overlay` (voile des modales, valeur de STYLE.md §7.9), `--container-text` (680 px) et `--gutter` (marges latérales 16 / 24 / 32 px de STYLE.md §6).
 - *Étape 2 — illustrations* : l'illustration d'un produit sans photo est choisie d'après des mots-clés du slug de sa catégorie (`gateau`, `viennoiserie`, `macaron`, `fete`/`noel`, `cadeau`…), pour résister aux renommages ; catégorie inconnue → la cerise de la marque.
+- *Étape 2 — police* (validé par Hamid) : DM Sans est **hébergée avec le site** (`@fontsource/dm-sans`, graisses 400, 500 et 600) au lieu du lien Google Fonts de STYLE.md §3 : aucune adresse IP de visiteur transmise à Google (Loi 25), aucun appel externe. Rendu identique.
 - *Étape 2 — page `/charte`* : page de contrôle de la charte (outil de développement), à retirer ou réserver au développement à l'étape 3.
 
 **À trancher avec Hamid** :
-- *Police* : STYLE.md impose le lien Google Fonts. Chaque visite transmet alors l'adresse IP du visiteur à Google (sous-traitant à citer dans la politique de confidentialité, Loi 25). Alternative : héberger DM Sans avec le site (`@fontsource/dm-sans`, déjà utilisé pour générer le logo), sans appel externe.
 - *Recherche de l'en-tête* (STYLE.md §7.1) : l'API n'a pas de paramètre de recherche ; proposition : filtrer côté navigateur (catalogue petit).
 - *Photo de profil du client* (STYLE.md §7.1) : le modèle User n'a pas de champ photo ; proposition : initiales seulement en v1.
 - *Section « Conservation » de la fiche produit* (STYLE.md §9) : aucun champ dans le modèle Product ; proposition : ajouter `storage {fr,en}` ou un texte générique.
