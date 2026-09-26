@@ -343,7 +343,11 @@ export async function cancelOrder(order, { by, reason, refund = true, isCustomer
   // Interac payé : le remboursement se fait manuellement, à noter par l'admin
 
   const wasPlaced = order.status !== 'pending_payment';
-  await restoreReservations(order);
+  // Annulation sans remboursement d'une commande payée : le client garde ce qu'il a acheté
+  // (cartes-cadeaux émises) et la carte-cadeau utilisée pour payer n'est pas recréditée.
+  const refunded = refund || !['paid', 'partially_refunded'].includes(p.status);
+  await restoreReservations(order, { giftCard: refunded });
+  if (refunded) await deactivateIssuedGiftCards(order, by);
   order.cancelReason = reason;
   order.setStatus('cancelled', by, reason);
   await order.save();
@@ -365,12 +369,32 @@ export async function refundOrder(order, { amount, by, note }) {
   p.refundedAmount += value;
   p.status = p.refundedAmount >= order.pricing.amountDue ? 'refunded' : 'partially_refunded';
   order.statusHistory.push({ status: order.status, by, note: note || `Remboursement de ${(value / 100).toFixed(2)} $` });
+  // Remboursement total : les cartes-cadeaux achetées dans la commande ne doivent plus servir
+  if (p.status === 'refunded') await deactivateIssuedGiftCards(order, by);
   await order.save();
   return order;
 }
 
-async function restoreReservations(order) {
-  if (order.giftCardCode && order.pricing.giftCardApplied > 0) {
+/**
+ * Désactive les cartes-cadeaux achetées dans une commande annulée ou remboursée,
+ * pour qu'elles ne puissent plus être utilisées. Si une carte a déjà servi en partie,
+ * une note le signale dans l'historique (à régler avec le client).
+ */
+async function deactivateIssuedGiftCards(order, by) {
+  const codes = order.giftCardsIssued || [];
+  if (codes.length === 0) return;
+  const cards = await GiftCard.find({ code: { $in: codes }, active: true });
+  if (cards.length === 0) return;
+  await GiftCard.updateMany({ code: { $in: cards.map((c) => c.code) } }, { $set: { active: false } });
+  const used = cards.filter((c) => c.balance < c.initialBalance);
+  const note = used.length
+    ? `Cartes-cadeaux désactivées (${codes.join(', ')}). Attention : déjà utilisées en partie : ${used.map((c) => c.code).join(', ')}`
+    : `Cartes-cadeaux désactivées (${codes.join(', ')})`;
+  order.statusHistory.push({ status: order.status, by, note });
+}
+
+async function restoreReservations(order, { giftCard = true } = {}) {
+  if (giftCard && order.giftCardCode && order.pricing.giftCardApplied > 0) {
     await GiftCard.updateOne({ code: order.giftCardCode }, { $inc: { balance: order.pricing.giftCardApplied } });
   }
   if (order.promoCode) {

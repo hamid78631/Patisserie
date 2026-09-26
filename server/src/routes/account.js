@@ -76,7 +76,7 @@ router.patch(
           .optional(),
       })
       .parse(req.body);
-    const user = await User.findByIdAndUpdate(req.user.id, body, { new: true });
+    const user = await User.findByIdAndUpdate(req.user.id, body, { returnDocument: 'after' });
     res.json(user.toPublic());
   }),
 );

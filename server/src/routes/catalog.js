@@ -5,7 +5,7 @@ import { paymentsMode } from '../lib/payments.js';
 
 const router = Router();
 
-/** Réglages visibles par le public (jamais les numéros de notification). */
+/** Réglages visibles par le public (jamais l'adresse de cueillette ni les coordonnées de notification). */
 router.get(
   '/settings',
   asyncHandler(async (_req, res) => {
@@ -21,6 +21,15 @@ router.get(
       taxesEnabled: s.taxesEnabled,
       stripeEnabled: s.stripeEnabled,
       interacEnabled: s.interacEnabled,
+      // Adresse Interac : nécessaire à la page de confirmation (instructions de virement)
+      interacEmail: s.interacEnabled ? s.interacEmail : '',
+      // Ville de cueillette seulement : l'adresse précise (un domicile) n'est envoyée qu'avec la confirmation
+      pickupCity: s.pickupCity,
+      permitNumber: s.permitNumber,
+      publicEmail: s.publicEmail,
+      publicPhone: s.publicPhone,
+      instagramUrl: s.instagramUrl,
+      facebookUrl: s.facebookUrl,
       paymentsMode,
     });
   }),
@@ -50,7 +59,8 @@ router.get(
       .populate('category', 'name slug')
       .sort({ sortOrder: 1, createdAt: -1 })
       .lean();
-    res.json(products.map(publicProduct));
+    // Un produit sans aucune variante active n'est pas achetable : on ne l'affiche pas
+    res.json(products.map(publicProduct).filter(Boolean));
   }),
 );
 
@@ -60,17 +70,17 @@ router.get(
     const product = await Product.findOne({ slug: req.params.slug, ...Product.availableFilter() })
       .populate('category', 'name slug')
       .lean();
-    if (!product) throw notFound('Produit introuvable');
-    res.json(publicProduct(product));
+    const publicView = product && publicProduct(product);
+    if (!publicView) throw notFound('Produit introuvable');
+    res.json(publicView);
   }),
 );
 
+/** Vue publique d'un produit : variantes actives seulement, prix « à partir de ». Null si rien à vendre. */
 function publicProduct(p) {
-  return {
-    ...p,
-    variants: p.variants.filter((v) => v.active),
-    fromPrice: Math.min(...p.variants.filter((v) => v.active).map((v) => v.price)),
-  };
+  const variants = p.variants.filter((v) => v.active);
+  if (variants.length === 0) return null;
+  return { ...p, variants, fromPrice: Math.min(...variants.map((v) => v.price)) };
 }
 
 export default router;

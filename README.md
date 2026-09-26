@@ -42,9 +42,11 @@ npm run marque              # régénère logo, favicon et icônes (si le nom ch
 npm test
 ```
 
-33 tests (calcul des prix + parcours complets de l'API). Ils téléchargent une base MongoDB en
+41 tests (calcul des prix + parcours complets de l'API). Ils téléchargent une base MongoDB en
 mémoire au premier lancement ; pour utiliser une base existante :
 `MONGODB_TEST_URI=mongodb://127.0.0.1:27017 npm test`.
+
+Pour tester l'API à la main (Postman, 84 requêtes prêtes) : voir [server/docs/TESTS-API.md](server/docs/TESTS-API.md).
 
 ## Organisation du code
 

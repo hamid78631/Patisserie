@@ -1,5 +1,6 @@
 import Stripe from 'stripe';
 import { config } from '../config.js';
+import { badRequest } from './errors.js';
 
 /**
  * Enveloppe Stripe. Sans STRIPE_SECRET_KEY, fonctionne en mode simulé :
@@ -30,22 +31,42 @@ export async function createAuthorization({ amount, orderNumber, orderId, email 
   return { id: intent.id, clientSecret: intent.client_secret, mock: false };
 }
 
-/** Débite une pré-autorisation (éventuellement un montant inférieur). */
+/**
+ * Transforme une erreur Stripe en erreur 400 lisible par le tableau de bord
+ * (au lieu d'une « erreur interne »). Les autres erreurs sont relancées telles quelles.
+ */
+async function appelStripe(code, fn) {
+  try {
+    return await fn();
+  } catch (err) {
+    if (err?.type?.startsWith?.('Stripe')) throw badRequest(code, `Stripe : ${err.message}`);
+    throw err;
+  }
+}
+
+/**
+ * Débite une pré-autorisation (éventuellement un montant inférieur).
+ * Échoue avec « capture_failed » si l'autorisation a expiré (7 jours) ou a été annulée.
+ */
 export async function capture(intentId, amount) {
   if (!stripe || intentId.startsWith('mock_')) return { status: 'succeeded' };
-  return stripe.paymentIntents.capture(intentId, amount ? { amount_to_capture: amount } : {});
+  return appelStripe('capture_failed', () =>
+    stripe.paymentIntents.capture(intentId, amount ? { amount_to_capture: amount } : {}),
+  );
 }
 
 /** Libère une pré-autorisation non capturée : aucun frais, aucun débit. */
 export async function voidAuthorization(intentId) {
   if (!stripe || intentId.startsWith('mock_')) return { status: 'canceled' };
-  return stripe.paymentIntents.cancel(intentId);
+  return appelStripe('void_failed', () => stripe.paymentIntents.cancel(intentId));
 }
 
 /** Rembourse un paiement capturé, en tout (amount omis) ou en partie. */
 export async function refund(intentId, amount) {
   if (!stripe || intentId.startsWith('mock_')) return { status: 'succeeded', amount };
-  return stripe.refunds.create({ payment_intent: intentId, ...(amount ? { amount } : {}) });
+  return appelStripe('refund_failed', () =>
+    stripe.refunds.create({ payment_intent: intentId, ...(amount ? { amount } : {}) }),
+  );
 }
 
 export async function retrieveIntent(intentId) {

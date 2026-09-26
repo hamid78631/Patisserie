@@ -1,5 +1,5 @@
 import { config } from '../config.js';
-import { Settings } from '../models/index.js';
+import { Order, Settings } from '../models/index.js';
 import { money, sendEmail, sendSms } from './messaging.js';
 
 /**
@@ -81,23 +81,50 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 }
 
+/**
+ * Jeton de suivi de la commande. Il n'est pas chargé par défaut (champ protégé) :
+ * on le relit en base pour que le lien des courriels fonctionne aussi pour les invités.
+ */
+async function tokenFor(order, trackingToken) {
+  if (trackingToken) return trackingToken;
+  const doc = await Order.findById(order._id).select('+trackingToken').lean();
+  return doc?.trackingToken;
+}
+
+function pickupLine(settings, lang) {
+  const address = settings.pickupAddress?.trim();
+  if (!address) {
+    return lang === 'fr'
+      ? '<p>Nous vous communiquerons l’adresse de cueillette par téléphone ou par courriel.</p>'
+      : '<p>We will send you the pickup address by phone or email.</p>';
+  }
+  return lang === 'fr'
+    ? `<p>Adresse de cueillette : <strong>${escapeHtml(address)}</strong></p>`
+    : `<p>Pickup address: <strong>${escapeHtml(address)}</strong></p>`;
+}
+
 /** Envoie les notifications correspondant à un événement. Ne lève jamais d'erreur. */
 export async function notifyOrder(event, order, { trackingToken, interacEmail } = {}) {
   try {
     const lang = order.locale || 'fr';
     const text = t[event]?.[lang]?.(order);
     if (!text) return;
-    const link = trackingUrl(order, trackingToken);
+    const link = trackingUrl(order, await tokenFor(order, trackingToken));
 
     let emailBody = text;
     if (event === 'received') {
       emailBody += itemsTable(order);
       if (order.payment.method === 'interac' && order.payment.status === 'awaiting_transfer') {
+        interacEmail = interacEmail || (await Settings.get()).interacEmail;
         emailBody +=
           lang === 'fr'
             ? `<p>Pour payer, envoyez un virement Interac de <strong>${money(order.pricing.amountDue, lang)}</strong> à <strong>${interacEmail}</strong> avec le message <strong>${order.number}</strong>.</p>`
             : `<p>To pay, send an Interac e-Transfer of <strong>${money(order.pricing.amountDue, lang)}</strong> to <strong>${interacEmail}</strong> with the message <strong>${order.number}</strong>.</p>`;
       }
+    }
+    // Confirmation d'une cueillette : l'adresse précise n'est communiquée qu'à ce moment
+    if (event === 'confirmed' && order.fulfillment?.type === 'pickup') {
+      emailBody += pickupLine(await Settings.get(), lang);
     }
 
     const tasks = [sendEmail(order.customer.email, subjectFor(event, order, lang), emailLayout(subjectFor(event, order, lang), emailBody, link))];

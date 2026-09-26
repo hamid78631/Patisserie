@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { config } from '../config.js';
+import { User } from '../models/index.js';
 import { forbidden, unauthorized } from '../lib/errors.js';
 
 const COOKIE = 'session';
@@ -40,8 +41,20 @@ export function requireUser(req, _res, next) {
   next();
 }
 
-export function requireAdmin(req, _res, next) {
+/**
+ * Accès admin : le rôle est relu en base à chaque requête (et non dans le jeton),
+ * pour qu'une administratrice retirée perde l'accès immédiatement.
+ */
+export async function requireAdmin(req, _res, next) {
   if (!req.user) return next(unauthorized());
-  if (req.user.role !== 'admin') return next(forbidden());
-  next();
+  try {
+    const user = await User.findById(req.user.id).select('role email').lean();
+    if (!user) return next(unauthorized());
+    if (user.role !== 'admin') return next(forbidden());
+    req.user.role = user.role;
+    req.user.email = user.email;
+    next();
+  } catch (err) {
+    next(err);
+  }
 }

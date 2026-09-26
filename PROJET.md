@@ -10,7 +10,7 @@
 ## 0. Instructions pour Claude Code
 
 1. **Lire ce document en entier avant de coder.**
-2. Le **backend (`server/`) est déjà construit et testé** (33 tests qui passent). Ne pas le réécrire. L'étendre seulement si une fonctionnalité de ce document l'exige, et garder tous les tests au vert (`cd server && npm test`).
+2. Le **backend (`server/`) est déjà construit et testé** (41 tests qui passent depuis l’audit). Ne pas le réécrire. L'étendre seulement si une fonctionnalité de ce document l'exige, et garder tous les tests au vert (`cd server && npm test`).
 3. Il reste à construire : le **frontend public**, le **tableau de bord admin** (tous deux dans `client/`), les **pages légales**, l'**identité visuelle** (section 14) et le **déploiement**.
 4. Respecter l'ordre des étapes de la section 17 et livrer une étape fonctionnelle avant de passer à la suivante.
 5. Règles non négociables :
@@ -343,7 +343,8 @@ patisserie/
     │   ├── services/orderService.js   toute la logique de commande
     │   ├── middleware/auth.js         JWT en cookie httpOnly « session », 30 jours
     │   └── routes/           catalog, orders, account, webhooks, admin/{index,orders,catalog,promotions,shop}
-    └── tests/                pricing.test.js (13), api.test.js (20) — 33 tests au vert
+    ├── docs/                 TESTS-API.md + collection Postman (84 requêtes) pour tester l'API à la main
+    └── tests/                pricing.test.js (13), api.test.js (28) — 41 tests au vert
 ```
 
 ### 13.2 Référence de l'API
@@ -353,7 +354,7 @@ Montants en cents. Erreurs au format `{ error: 'code', message, details? }` (`de
 | Méthode | Route | Entrée → Sortie |
 |---|---|---|
 | GET | `/api/health` | `{ ok, db }` |
-| GET | `/api/settings` | `{ ordersOpen, closedMessage, minimumOrder, deliveryFee, deliveryEnabled, pickupEnabled, deliveryPostalPrefixes, taxesEnabled, stripeEnabled, interacEnabled, paymentsMode }` |
+| GET | `/api/settings` | `{ ordersOpen, closedMessage, minimumOrder, deliveryFee, deliveryEnabled, pickupEnabled, deliveryPostalPrefixes, taxesEnabled, stripeEnabled, interacEnabled, interacEmail, pickupCity, permitNumber, publicEmail, publicPhone, instagramUrl, facebookUrl, paymentsMode }` (jamais `pickupAddress` ni les coordonnées de notification) |
 | GET | `/api/categories` | catégories actives triées |
 | GET | `/api/products?category=<slug>&featured=true&seasonal=true` | produits disponibles (+ `fromPrice`, catégorie peuplée, variantes actives seulement) |
 | GET | `/api/products/:slug` | fiche produit |
@@ -389,12 +390,20 @@ Montants en cents. Erreurs au format `{ error: 'code', message, details? }` (`de
 - Idempotence : clé `order-<id>` lors de la création du PaymentIntent ; `markAuthorized` et `issueGiftCards` sont idempotents.
 - Statistiques calculées en JavaScript (volumes faibles, compatibilité maximale).
 - Tests : `mongodb-memory-server` par défaut, ou `MONGODB_TEST_URI`.
+- **Accès admin** : le rôle est relu en base à chaque requête `/api/admin/*` (et non dans le jeton) : une administratrice retirée perd l'accès immédiatement. On ne peut pas promouvoir un compte client existant (son mot de passe serait écrasé) : `409 email_taken`.
+- **Liens de suivi** : tous les courriels au client contiennent le jeton de suivi (le jeton est relu en base), y compris après un paiement Stripe réel (webhook). Comparaison du jeton en temps constant.
+- **Cartes-cadeaux et annulation** : si une commande est annulée **avec remboursement** (ou remboursée en totalité), les cartes-cadeaux qu'elle a achetées sont désactivées (note dans l'historique si l'une a déjà servi) et le solde de la carte utilisée pour payer est recrédité. Annulation **sans** remboursement : rien n'est rendu, les cartes achetées restent valides.
+- **Erreurs Stripe** (capture après expiration de la pré-autorisation, etc.) : renvoyées en `400 capture_failed` / `refund_failed` / `void_failed` avec le message de Stripe, au lieu d'une erreur 500.
+- **Statistiques** : ventes nettes des remboursements.
+- Un produit sans aucune variante active n'est pas affiché (ni en liste, ni en fiche).
+- En mode simulé, les courriels affichés dans la console incluent leurs liens (suivi, admin) pour pouvoir tester le parcours.
 
 ### 13.4 Améliorations backend à faire pendant la construction du frontend
-- `GET /api/settings` doit aussi exposer : `pickupCity` (la ville seulement : l'adresse précise de cueillette reste privée, car c'est un domicile, et n'est envoyée qu'avec la confirmation), `interacEmail` (nécessaire à la page de confirmation), `permitNumber` (à ajouter au modèle Settings), coordonnées publiques de la boutique (`publicEmail`, `publicPhone`, `instagramUrl`, `facebookUrl`, à ajouter au modèle Settings et à l'admin).
-- Ajouter l'adresse de cueillette au courriel de **confirmation** quand `fulfillment.type = 'pickup'`.
-- Mot de passe oublié (lien par courriel, jeton à usage unique de 1 h).
-- Servir `sitemap.xml` (ou le générer au build du frontend).
+- ✅ `GET /api/settings` expose aussi : `pickupCity` (la ville seulement : l'adresse précise de cueillette reste privée, car c'est un domicile, et n'est envoyée qu'avec la confirmation), `interacEmail` (vide si Interac est désactivé), `permitNumber`, `publicEmail`, `publicPhone`, `instagramUrl`, `facebookUrl` (ajoutés au modèle Settings et à `PUT /api/admin/settings`).
+- ✅ Adresse de cueillette dans le courriel de **confirmation** quand `fulfillment.type = 'pickup'` (sinon : « Nous vous communiquerons l'adresse… »).
+- ⏳ Mot de passe oublié (lien par courriel, jeton à usage unique de 1 h) : **à l'étape 5** (comptes clients).
+- ⏳ `sitemap.xml` : généré au build du frontend, **à l'étape 7** (SEO).
+- ⏳ Courriels à l'image de la marque (police, couleurs, détail des taxes et numéros TPS/TVQ) : **à l'étape 6**.
 
 ---
 
@@ -469,7 +478,10 @@ Choix d'une date par le client dans un calendrier avec capacité maximale par jo
 - *Étape 2 — police* (validé par Hamid) : DM Sans est **hébergée avec le site** (`@fontsource/dm-sans`, graisses 400, 500 et 600) au lieu du lien Google Fonts de STYLE.md §3 : aucune adresse IP de visiteur transmise à Google (Loi 25), aucun appel externe. Rendu identique.
 - *Étape 2 — page `/charte`* : page de contrôle de la charte (outil de développement), à retirer ou réserver au développement à l'étape 3.
 
+- *Audit du backend (avant l'étape 3)* : 3 bugs corrigés (lien de suivi sans jeton dans les courriels, carte-cadeau encore valide après annulation remboursée, administratrice retirée gardant l'accès), plus erreurs Stripe lisibles, statistiques nettes des remboursements, carte-cadeau de paiement non recréditée lors d'une annulation sans remboursement, promotion d'un compte client refusée. Voir 13.3.
+
 **À trancher avec Hamid** :
+- *Carte-cadeau achetée par carte bancaire* : comme tout paiement Stripe, elle n'est débitée et envoyée qu'à la **confirmation par l'admin** (comportement conservé par défaut). Alternative : débit immédiat et envoi automatique quand le panier ne contient que des cartes-cadeaux.
 - *Recherche de l'en-tête* (STYLE.md §7.1) : l'API n'a pas de paramètre de recherche ; proposition : filtrer côté navigateur (catalogue petit).
 - *Photo de profil du client* (STYLE.md §7.1) : le modèle User n'a pas de champ photo ; proposition : initiales seulement en v1.
 - *Section « Conservation » de la fiche produit* (STYLE.md §9) : aucun champ dans le modèle Product ; proposition : ajouter `storage {fr,en}` ou un texte générique.

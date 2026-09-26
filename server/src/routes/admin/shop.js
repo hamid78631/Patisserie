@@ -21,6 +21,7 @@ const settingsInput = z
     pickupEnabled: z.boolean(),
     deliveryPostalPrefixes: z.array(z.string().trim().toUpperCase().regex(/^[A-Z]\d?[A-Z]?$/)).min(1),
     pickupAddress: z.string().max(300),
+    pickupCity: z.string().trim().max(100),
     taxesEnabled: z.boolean(),
     gstRate: z.number().min(0).max(1),
     qstRate: z.number().min(0).max(1),
@@ -31,6 +32,11 @@ const settingsInput = z
     interacEmail: z.string().email().or(z.literal('')),
     notificationEmail: z.string().email().or(z.literal('')),
     notificationPhone: z.string().max(30),
+    permitNumber: z.string().trim().max(60),
+    publicEmail: z.string().trim().email().or(z.literal('')),
+    publicPhone: z.string().trim().max(30),
+    instagramUrl: z.string().trim().url().or(z.literal('')),
+    facebookUrl: z.string().trim().url().or(z.literal('')),
   })
   .partial();
 
@@ -65,7 +71,7 @@ router.get(
     const paidFilter = { createdAt: { $gte: since }, status: { $in: paidStatuses } };
 
     const [paidOrders, topProducts, pending] = await Promise.all([
-      Order.find(paidFilter).select('pricing.total createdAt').lean(),
+      Order.find(paidFilter).select('pricing.total payment.refundedAmount createdAt').lean(),
       Order.aggregate([
         { $match: paidFilter },
         { $unwind: '$items' },
@@ -78,15 +84,17 @@ router.get(
 
     // Regroupement par jour (heure du Québec) en JavaScript : volumes faibles, code portable
     const dayKey = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Toronto', year: 'numeric', month: '2-digit', day: '2-digit' });
+    // Ventes nettes : total de la commande moins les remboursements partiels
+    const net = (o) => o.pricing.total - (o.payment?.refundedAmount || 0);
     const dailyTotals = new Map();
     for (const o of paidOrders) {
       const key = dayKey.format(o.createdAt);
       const d = dailyTotals.get(key) || { date: key, revenue: 0, orders: 0 };
-      d.revenue += o.pricing.total;
+      d.revenue += net(o);
       d.orders += 1;
       dailyTotals.set(key, d);
     }
-    const revenue = paidOrders.reduce((n, o) => n + o.pricing.total, 0);
+    const revenue = paidOrders.reduce((n, o) => n + net(o), 0);
 
     res.json({
       days,
@@ -130,7 +138,9 @@ router.post(
       .parse(req.body);
     const existing = await User.findOne({ email: body.email });
     if (existing?.role === 'admin') throw conflict('already_admin', 'Déjà administratrice');
-    const user = existing || new User({ email: body.email, name: body.name });
+    // Ne jamais écraser le mot de passe d'un compte client existant : utiliser un autre courriel
+    if (existing) throw conflict('email_taken', 'Ce courriel appartient déjà à un compte client');
+    const user = new User({ email: body.email, name: body.name });
     user.role = 'admin';
     await user.setPassword(body.password);
     await user.save();

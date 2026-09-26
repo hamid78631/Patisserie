@@ -29,7 +29,7 @@ router.post('/promos', asyncHandler(async (req, res) => res.status(201).json(awa
 router.put(
   '/promos/:id',
   asyncHandler(async (req, res) => {
-    const promo = await PromoCode.findByIdAndUpdate(req.params.id, promoInput.parse(req.body), { new: true, runValidators: true });
+    const promo = await PromoCode.findByIdAndUpdate(req.params.id, promoInput.parse(req.body), { returnDocument: 'after', runValidators: true });
     if (!promo) throw notFound();
     res.json(promo);
   }),
@@ -90,7 +90,7 @@ router.patch(
         note: z.string().max(500).optional(),
       })
       .parse(req.body);
-    const card = await GiftCard.findByIdAndUpdate(req.params.id, body, { new: true, runValidators: true });
+    const card = await GiftCard.findByIdAndUpdate(req.params.id, body, { returnDocument: 'after', runValidators: true });
     if (!card) throw notFound();
     res.json(card);
   }),

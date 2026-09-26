@@ -28,10 +28,17 @@ export async function sendSms(to, body) {
   }
 }
 
+/** Courriels simulés récents (mode sans clé Resend) : utiles pour les tests. */
+export const simulatedEmails = [];
+
 export async function sendEmail(to, subject, html) {
   if (!to) return;
   if (!config.resend.apiKey) {
-    console.log(`[Courriel simulé] → ${to}: ${subject}`);
+    simulatedEmails.push({ to, subject, html });
+    if (simulatedEmails.length > 50) simulatedEmails.shift();
+    // Les liens sont affichés pour pouvoir tester le parcours (suivi, admin) sans courriel réel
+    const liens = [...String(html).matchAll(/href="([^"]+)"/g)].map((m) => m[1]);
+    console.log(`[Courriel simulé] → ${to}: ${subject}${liens.length ? ` | ${liens.join(' ')}` : ''}`);
     return;
   }
   try {

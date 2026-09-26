@@ -1,6 +1,7 @@
+import crypto from 'node:crypto';
 import { Router } from 'express';
 import { z } from 'zod';
-import { GiftCard, Order } from '../models/index.js';
+import { GiftCard, Order, User } from '../models/index.js';
 import { asyncHandler, notFound } from '../lib/errors.js';
 import { limiter } from '../lib/rateLimit.js';
 import { buildDraft, cancelOrder, cartSchema, createOrder, orderSchema } from '../services/orderService.js';
@@ -39,10 +40,19 @@ async function findTrackedOrder(req) {
   const order = await Order.findOne({ number: req.params.number }).select('+trackingToken');
   if (!order) throw notFound('Commande introuvable');
   const token = String(req.query.t || req.body?.token || '');
+  if (token && sameToken(token, order.trackingToken)) return order;
   const ownsIt = req.user && order.user && String(order.user) === req.user.id;
-  const isAdmin = req.user?.role === 'admin';
-  if (!ownsIt && !isAdmin && (!token || token !== order.trackingToken)) throw notFound('Commande introuvable');
-  return order;
+  if (ownsIt) return order;
+  // Rôle admin relu en base (une administratrice retirée perd l'accès immédiatement)
+  if (req.user?.role === 'admin' && (await User.exists({ _id: req.user.id, role: 'admin' }))) return order;
+  throw notFound('Commande introuvable');
+}
+
+/** Comparaison en temps constant (évite de deviner le jeton caractère par caractère). */
+function sameToken(a, b) {
+  const x = Buffer.from(String(a));
+  const y = Buffer.from(String(b || ''));
+  return x.length === y.length && crypto.timingSafeEqual(x, y);
 }
 
 router.get(

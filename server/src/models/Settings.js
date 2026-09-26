@@ -19,7 +19,10 @@ const settingsSchema = new mongoose.Schema(
     pickupEnabled: { type: Boolean, default: true },
     // Préfixes de codes postaux livrés (ville de Québec : G1, G2, G3)
     deliveryPostalPrefixes: { type: [String], default: ['G1', 'G2', 'G3'] },
-    pickupAddress: { type: String, default: 'Adresse communiquée après la commande' },
+    // Adresse précise de cueillette (domicile) : privée, envoyée seulement avec la confirmation
+    pickupAddress: { type: String, default: '' },
+    // Ville de cueillette, affichée publiquement
+    pickupCity: { type: String, default: 'Québec' },
     taxesEnabled: { type: Boolean, default: false },
     gstRate: { type: Number, default: 0.05 },
     qstRate: { type: Number, default: 0.09975 },
@@ -30,12 +33,18 @@ const settingsSchema = new mongoose.Schema(
     interacEmail: { type: String, default: '' },
     notificationEmail: { type: String, default: '' },
     notificationPhone: { type: String, default: '' },
+    // Coordonnées publiques (pied de page, page Contact) et permis MAPAQ
+    permitNumber: { type: String, default: '' },
+    publicEmail: { type: String, default: '' },
+    publicPhone: { type: String, default: '' },
+    instagramUrl: { type: String, default: '' },
+    facebookUrl: { type: String, default: '' },
   },
   { timestamps: true },
 );
 
 settingsSchema.statics.get = async function getSettings() {
-  return this.findOneAndUpdate({ _id: 'shop' }, {}, { upsert: true, new: true, setDefaultsOnInsert: true });
+  return this.findOneAndUpdate({ _id: 'shop' }, {}, { upsert: true, returnDocument: 'after', setDefaultsOnInsert: true });
 };
 
 export const Settings = mongoose.model('Settings', settingsSchema);

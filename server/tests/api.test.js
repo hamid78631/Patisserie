@@ -3,6 +3,7 @@ import request from 'supertest';
 import mongoose from 'mongoose';
 import { createApp } from '../src/app.js';
 import { Category, GiftCard, Order, Product, PromoCode, Settings, User } from '../src/models/index.js';
+import { simulatedEmails } from '../src/lib/messaging.js';
 import { connectTestDb, disconnectTestDb, resetDb } from './helpers/db.js';
 
 const app = createApp();
@@ -97,6 +98,30 @@ describe('Catalogue', () => {
     expect(res.body.minimumOrder).toBe(3000);
     expect(res.body.notificationPhone).toBeUndefined();
     expect(res.body.paymentsMode).toBe('mock');
+  });
+
+  it('expose les coordonnées publiques, mais jamais l’adresse de cueillette', async () => {
+    await admin
+      .put('/api/admin/settings')
+      .send({ pickupAddress: '12 rue Privée, Québec', permitNumber: 'MAPAQ-123', publicEmail: 'bonjour@exemple.ca', instagramUrl: 'https://instagram.com/patisserie' })
+      .expect(200);
+    const res = await request(app).get('/api/settings').expect(200);
+    expect(res.body).toMatchObject({
+      pickupCity: 'Québec',
+      interacEmail: 'paie@example.com',
+      permitNumber: 'MAPAQ-123',
+      publicEmail: 'bonjour@exemple.ca',
+      instagramUrl: 'https://instagram.com/patisserie',
+    });
+    expect(res.body.pickupAddress).toBeUndefined();
+    expect(JSON.stringify(res.body)).not.toContain('rue Privée');
+  });
+
+  it('masque un produit dont aucune variante n’est active', async () => {
+    await Product.updateOne({ _id: croissants._id }, { $set: { 'variants.0.active': false } });
+    const res = await request(app).get('/api/products').expect(200);
+    expect(res.body.map((p) => p.name.fr)).not.toContain('Croissants');
+    await request(app).get(`/api/products/${croissants.slug}`).expect(404);
   });
 });
 
@@ -323,6 +348,78 @@ describe('Comptes clients', () => {
     await client.post('/api/auth/logout').expect(204);
     await client.get('/api/account/orders').expect(401);
     await request(app).post('/api/auth/login').send({ email: 'luc@example.com', password: 'mauvais-mdp' }).expect(401);
+  });
+});
+
+// Les notifications partent sans être attendues : on patiente jusqu'à ce que le courriel soit « envoyé »
+async function emailTo(to, subjectPart) {
+  for (let i = 0; i < 50; i += 1) {
+    const found = simulatedEmails.find((e) => e.to === to && e.subject.includes(subjectPart));
+    if (found) return found;
+    await new Promise((r) => setTimeout(r, 20));
+  }
+  throw new Error(`Aucun courriel « ${subjectPart} » pour ${to}`);
+}
+
+describe('Corrections de l’audit', () => {
+  beforeEach(() => {
+    simulatedEmails.length = 0;
+  });
+
+  it('les courriels de suivi contiennent le jeton, même après la commande (invité)', async () => {
+    const { body } = await request(app).post('/api/orders').send(orderBody({ fulfillment: { type: 'pickup' } })).expect(201);
+    await admin.put('/api/admin/settings').send({ pickupAddress: '12 rue des Érables, Québec' }).expect(200);
+    await admin.post(`/api/admin/orders/${body.order._id}/confirm`).send({}).expect(200);
+    const mail = await emailTo(customer.email, 'confirmée');
+    expect(mail.html).toContain(`/commande/${body.order.number}?t=${body.trackingToken}`);
+    // Cueillette : l'adresse précise est donnée à la confirmation
+    expect(mail.html).toContain('12 rue des Érables');
+  });
+
+  it('une carte-cadeau achetée est désactivée si la commande est annulée et remboursée', async () => {
+    const giftItems = [{ productId: String(giftCardProduct._id), variantId: String(giftCardProduct.variants[0]._id), quantity: 1 }];
+    const buy = await request(app).post('/api/orders').send(orderBody({ items: giftItems, fulfillment: undefined })).expect(201);
+    await admin.post(`/api/admin/orders/${buy.body.order._id}/confirm`).send({}).expect(200);
+    const { code } = await GiftCard.findOne({ purchaseOrder: buy.body.order._id });
+    expect((await request(app).post('/api/giftcards/check').send({ code })).body.valid).toBe(true);
+
+    const res = await admin.post(`/api/admin/orders/${buy.body.order._id}/cancel`).send({ reason: 'Erreur', refund: true }).expect(200);
+    expect(res.body.payment.status).toBe('refunded');
+    expect((await request(app).post('/api/giftcards/check').send({ code })).body.valid).toBe(false);
+  });
+
+  it('annulation sans remboursement : les cartes achetées restent valides', async () => {
+    const giftItems = [{ productId: String(giftCardProduct._id), variantId: String(giftCardProduct.variants[0]._id), quantity: 1 }];
+    const buy = await request(app).post('/api/orders').send(orderBody({ items: giftItems, fulfillment: undefined })).expect(201);
+    await admin.post(`/api/admin/orders/${buy.body.order._id}/confirm`).send({}).expect(200);
+    await admin.post(`/api/admin/orders/${buy.body.order._id}/cancel`).send({ reason: 'Geste', refund: false }).expect(200);
+    const { code } = await GiftCard.findOne({ purchaseOrder: buy.body.order._id });
+    expect((await request(app).post('/api/giftcards/check').send({ code })).body.valid).toBe(true);
+  });
+
+  it('une administratrice retirée perd l’accès immédiatement', async () => {
+    await admin.post('/api/admin/users').send({ email: 'deux@example.com', name: 'Deux', password: 'motdepasse-deux' }).expect(201);
+    const second = request.agent(app);
+    await second.post('/api/auth/login').send({ email: 'deux@example.com', password: 'motdepasse-deux' }).expect(200);
+    await second.get('/api/admin/orders').expect(200);
+    const users = await admin.get('/api/admin/users').expect(200);
+    await admin.delete(`/api/admin/users/${users.body.find((u) => u.email === 'deux@example.com').id}`).expect(204);
+    await second.get('/api/admin/orders').expect(403);
+  });
+
+  it('refuse de promouvoir un compte client (son mot de passe serait écrasé)', async () => {
+    await request(app).post('/api/auth/register').send({ email: 'client@example.com', password: 'motdepasse', name: 'Client' }).expect(201);
+    const res = await admin.post('/api/admin/users').send({ email: 'client@example.com', name: 'Client', password: 'nouveau-mdp-123' }).expect(409);
+    expect(res.body.error).toBe('email_taken');
+    await request(app).post('/api/auth/login').send({ email: 'client@example.com', password: 'motdepasse' }).expect(200);
+  });
+
+  it('les statistiques déduisent les remboursements', async () => {
+    const { body } = await request(app).post('/api/orders').send(orderBody()).expect(201);
+    await admin.post(`/api/admin/orders/${body.order._id}/confirm`).send({}).expect(200);
+    await admin.post(`/api/admin/orders/${body.order._id}/refund`).send({ amount: 1200 }).expect(200);
+    const stats = await admin.get('/api/admin/stats').expect(200);
+    expect(stats.body.revenue).toBe(4000);
   });
 });
 

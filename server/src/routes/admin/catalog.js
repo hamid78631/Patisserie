@@ -47,7 +47,7 @@ router.put(
   asyncHandler(async (req, res) => {
     const body = categoryInput.parse(req.body);
     body.slug = slugify(body.slug || body.name.fr);
-    const cat = await Category.findByIdAndUpdate(req.params.id, body, { new: true, runValidators: true });
+    const cat = await Category.findByIdAndUpdate(req.params.id, body, { returnDocument: 'after', runValidators: true });
     if (!cat) throw notFound();
     res.json(cat);
   }),
@@ -151,7 +151,7 @@ router.patch(
   '/products/:id/active',
   asyncHandler(async (req, res) => {
     const { active } = z.object({ active: z.boolean() }).parse(req.body);
-    const p = await Product.findByIdAndUpdate(req.params.id, { active }, { new: true });
+    const p = await Product.findByIdAndUpdate(req.params.id, { active }, { returnDocument: 'after' });
     if (!p) throw notFound();
     res.json(p);
   }),
