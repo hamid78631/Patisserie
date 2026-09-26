@@ -1,0 +1,24 @@
+.lignes { list-style: none; margin: 0; padding: 0; }
+.ligne {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: var(--space-3) var(--space-4);
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+}
+.vignette {
+  display: block;
+  width: 64px;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--color-blush);
+}
+.vignette img, .vignette svg { width: 100%; height: 100%; object-fit: cover; }
+.infos { display: grid; gap: var(--space-1); align-content: start; min-width: 0; }
+.nom { color: var(--color-wine); font-weight: 500; text-decoration: none; }
+.nom:hover { text-decoration: underline; }
+.format { color: var(--color-ink-muted); font-size: var(--text-small); }
+.message { font-size: var(--text-small); font-style: italic; overflow-wrap: anywhere; }
+.actions { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-2); }
+.prix { white-space: nowrap; }

@@ -1,0 +1,2 @@
+.panneau { position: fixed; inset: 0; z-index: 50; background: var(--color-white); }
+.barre { display: flex; align-items: center; gap: var(--space-2); padding-block: var(--space-2); }

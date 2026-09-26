@@ -1,0 +1,66 @@
+/* Bannière : illustration au-dessus du texte sur mobile, à droite sur ordinateur */
+.hero {
+  display: grid;
+  gap: var(--space-8);
+  padding-block: var(--space-6) var(--space-12);
+}
+.heroTexte { display: grid; gap: var(--space-4); align-content: center; }
+.surtitre { color: var(--color-red); }
+.chapeau { color: var(--color-ink-muted); max-width: 52ch; }
+.boutons { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-2); }
+.heroImage { order: -1; align-self: center; border-radius: var(--radius-lg); overflow: hidden; }
+@media (max-width: 767px) {
+  .boutons :global(.btn) { flex: 1 1 100%; }
+}
+@media (min-width: 1024px) {
+  .hero { grid-template-columns: 1fr 1fr; gap: var(--space-12); padding-block: var(--space-12) var(--space-16); }
+  .heroImage { order: 0; }
+}
+
+.sectionVedettes { padding-top: 0; }
+.enteteSection {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.listeEtapes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-8);
+}
+@media (min-width: 768px) { .listeEtapes { grid-template-columns: repeat(3, 1fr); } }
+.listeEtapes li { display: grid; gap: var(--space-2); align-content: start; }
+.iconeEtape {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--color-blush);
+  color: var(--color-wine);
+}
+
+/* Produits saisonniers : fond rose poudré pleine largeur */
+.saison { background: var(--color-blush); }
+.saisonTexte { margin: var(--space-2) 0 var(--space-6); }
+
+.infos {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-6);
+  display: grid;
+  gap: var(--space-6);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+@media (min-width: 768px) { .infos { grid-template-columns: repeat(3, 1fr); padding: var(--space-8); } }
+.infos li { display: flex; gap: var(--space-4); align-items: flex-start; }
+.infos svg { flex-shrink: 0; color: var(--color-wine); }
+.infos h3 { margin-bottom: var(--space-1); }
+.infos p { font-size: var(--text-small); }

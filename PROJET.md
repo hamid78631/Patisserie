@@ -449,7 +449,7 @@ Coûts mensuels estimés : Render ~7 $ US, Twilio quelques $, le reste gratuit ;
 |---|---|---|
 | 1 | API Express : modèles, catalogue, commandes, Stripe, Interac, promos, cartes-cadeaux, admin, tests | ✅ Fait |
 | 2 | Identité visuelle : tokens CSS, logo SVG, illustrations de remplacement | ✅ Fait |
-| 3 | Frontend public : structure, i18n, catalogue, fiche produit, panier | À faire |
+| 3 | Frontend public : structure, i18n, catalogue, fiche produit, panier | ✅ Fait |
 | 4 | Paiement : checkout, Stripe Payment Element, Interac, confirmation et suivi, annulation | À faire |
 | 5 | Comptes clients | À faire |
 | 6 | Tableau de bord admin (section 10) + améliorations backend (13.4) | À faire |
@@ -476,7 +476,13 @@ Choix d'une date par le client dans un calendrier avec capacité maximale par jo
 - *Étape 2 — jetons* : trois jetons ajoutés à ceux de STYLE.md §12, sans nouvelle couleur : `--color-overlay` (voile des modales, valeur de STYLE.md §7.9), `--container-text` (680 px) et `--gutter` (marges latérales 16 / 24 / 32 px de STYLE.md §6).
 - *Étape 2 — illustrations* : l'illustration d'un produit sans photo est choisie d'après des mots-clés du slug de sa catégorie (`gateau`, `viennoiserie`, `macaron`, `fete`/`noel`, `cadeau`…), pour résister aux renommages ; catégorie inconnue → la cerise de la marque.
 - *Étape 2 — police* (validé par Hamid) : DM Sans est **hébergée avec le site** (`@fontsource/dm-sans`, graisses 400, 500 et 600) au lieu du lien Google Fonts de STYLE.md §3 : aucune adresse IP de visiteur transmise à Google (Loi 25), aucun appel externe. Rendu identique.
-- *Étape 2 — page `/charte`* : page de contrôle de la charte (outil de développement), à retirer ou réserver au développement à l'étape 3.
+- *Étape 2 — page `/charte`* : page de contrôle de la charte, accessible **en développement seulement** (absente du site en production).
+- *Étape 3 — recherche* : l'API n'ayant pas de recherche, le catalogue complet est chargé une fois et filtré dans le navigateur (nom et catégorie, FR et EN, sans tenir compte des accents). À revoir si le catalogue dépasse quelques centaines de produits.
+- *Étape 3 — « Conservation »* : texte générique (réfrigérateur, 48 h) sur chaque fiche, sauf les cartes-cadeaux. Un champ par produit pourra être ajouté plus tard si la cliente le souhaite.
+- *Étape 3 — coordonnées* : le pied de page et les données structurées utilisent les réglages publics de l'API (courriel, téléphone, réseaux, permis MAPAQ) ; `client/src/config/brand.js` sert de repli tant qu'ils ne sont pas renseignés.
+- *Étape 3 — avatar* : initiales seulement (pas de photo de profil en v1).
+- *Étape 3 — panier* : l'aperçu (nom, image, prix indicatif) est gardé dans le navigateur pour un affichage immédiat ; les prix affichés sont remplacés par ceux recalculés par le serveur (`/api/cart/quote`) dès qu'ils arrivent. Le bouton Commander est désactivé si les commandes sont fermées ou si le minimum (hors cartes-cadeaux) n'est pas atteint.
+- *Étape 3 — pages à venir* : paiement, suivi de commande, comptes et pages légales affichent « Bientôt disponible » jusqu'à leur étape.
 
 - *Audit du backend (avant l'étape 3)* : 3 bugs corrigés (lien de suivi sans jeton dans les courriels, carte-cadeau encore valide après annulation remboursée, administratrice retirée gardant l'accès), plus erreurs Stripe lisibles, statistiques nettes des remboursements, carte-cadeau de paiement non recréditée lors d'une annulation sans remboursement, promotion d'un compte client refusée. Voir 13.3.
 

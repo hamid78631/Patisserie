@@ -1,0 +1,20 @@
+/* Puces de catégories : défilement horizontal sur mobile (sans barre visible) */
+.puces {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0 calc(-1 * var(--gutter)) var(--space-4);
+  padding: 0 var(--gutter) var(--space-1);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.puces::-webkit-scrollbar { display: none; }
+@media (min-width: 768px) {
+  .puces { flex-wrap: wrap; margin-inline: 0; padding-inline: 0; overflow: visible; }
+}
+.resume {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}

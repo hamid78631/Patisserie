@@ -1,0 +1,55 @@
+.carte {
+  position: relative;
+  display: grid;
+  gap: var(--space-1);
+  align-content: start;
+  transition: transform var(--transition);
+}
+.carte:hover { transform: translateY(-2px); }
+.carte:hover .image { box-shadow: var(--shadow); }
+/* Sur un appareil tactile, pas de soulèvement */
+@media (hover: none) { .carte:hover { transform: none; } .carte:hover .image { box-shadow: none; } }
+
+.image {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  margin-bottom: var(--space-2);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-blush);
+  transition: box-shadow var(--transition);
+}
+.image img,
+.image svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.badge {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  color: var(--color-wine);
+  font-size: var(--text-overline);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.categorie { color: var(--color-ink-muted); }
+.nom { font-size: var(--text-h3); }
+
+.lien { color: inherit; text-decoration: none; }
+.lien::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+}
+.lien:hover { color: var(--color-wine); }
+.lien:focus-visible { outline: none; }
+.lien:focus-visible::after { outline: 2px solid var(--color-red); outline-offset: 4px; }

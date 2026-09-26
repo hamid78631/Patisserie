@@ -1,0 +1,35 @@
+.entete { display: grid; gap: var(--space-2); max-width: var(--container-text); margin-bottom: var(--space-8); }
+.grille { display: grid; gap: var(--space-8); align-items: start; }
+@media (min-width: 1024px) { .grille { grid-template-columns: 3fr 2fr; gap: var(--space-12); } }
+.bloc {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+@media (min-width: 768px) { .bloc { padding: var(--space-8); } }
+.illustration { max-width: 220px; border-radius: var(--radius-md); overflow: hidden; }
+.formulaire { display: grid; gap: var(--space-4); justify-items: start; }
+.formulaire > .field { width: 100%; }
+.montants { border: 0; margin: 0; padding: 0; }
+.montants legend, .etiquette { margin-bottom: var(--space-2); font-size: var(--text-small); font-weight: 500; }
+.quantite { display: grid; justify-items: start; }
+.pastilles { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.pastille {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  min-width: 96px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: border-color var(--transition), background-color var(--transition);
+}
+.pastille input { position: absolute; opacity: 0; pointer-events: none; }
+.pastille:hover { border-color: var(--color-wine); }
+.pastille:has(input:checked) { border-color: var(--color-wine); background: var(--color-blush); color: var(--color-wine); }
+.pastille:has(input:focus-visible) { outline: 2px solid var(--color-red); outline-offset: 2px; }

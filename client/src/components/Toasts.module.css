@@ -1,0 +1,52 @@
+.zone {
+  position: fixed;
+  z-index: 60;
+  left: var(--space-4);
+  right: var(--space-4);
+  /* Au-dessus de la barre de navigation du bas sur mobile */
+  bottom: calc(64px + var(--space-3) + env(safe-area-inset-bottom));
+  display: grid;
+  gap: var(--space-2);
+  justify-items: center;
+  pointer-events: none;
+}
+/* Mobile : au-dessus d'une barre d'action collée (Ajouter au panier, Commander)
+   ou du pied du tiroir panier, pour ne jamais masquer le bouton principal */
+@media (max-width: 767px) {
+  :global(body:has([data-barre-action])) .zone { bottom: calc(64px + 72px + var(--space-3) + env(safe-area-inset-bottom)); }
+  :global(body:has([data-tiroir-panier])) .zone { bottom: calc(200px + env(safe-area-inset-bottom)); }
+}
+@media (min-width: 768px) {
+  .zone { left: auto; right: var(--space-6); bottom: var(--space-6); justify-items: end; }
+}
+
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 420px;
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-ink);
+  color: var(--color-white);
+  box-shadow: var(--shadow);
+  font-size: var(--text-small);
+  line-height: 1.5;
+}
+.toast p { flex: 1; }
+.toast svg { flex-shrink: 0; }
+
+.fermer {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: calc(-1 * var(--space-2)) 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-white);
+  cursor: pointer;
+}

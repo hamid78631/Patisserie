@@ -1,0 +1,25 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+/* Place pour la barre de navigation du bas (mobile) */
+@media (max-width: 767px) {
+  .app { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+}
+.contenu { flex: 1; }
+.contenu:focus { outline: none; }
+
+/* Lien d'évitement : visible seulement au clavier */
+.evitement {
+  position: absolute;
+  z-index: 100;
+  left: var(--space-4);
+  top: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-wine);
+  color: var(--color-white);
+  transform: translateY(-200%);
+}
+.evitement:focus { transform: none; color: var(--color-white); }

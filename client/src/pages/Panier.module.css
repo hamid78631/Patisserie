@@ -1,0 +1,27 @@
+.nombre { color: var(--color-ink-muted); font-size: var(--text-body); font-weight: 400; letter-spacing: 0; }
+.grille { display: grid; gap: var(--space-8); align-items: start; }
+@media (min-width: 1024px) { .grille { grid-template-columns: 2fr 1fr; gap: var(--space-12); } }
+.continuer { margin-top: var(--space-4); }
+.resume {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+@media (min-width: 1024px) { .resume { position: sticky; top: calc(var(--header-h) + var(--space-6)); } }
+.total { display: flex; justify-content: space-between; font-size: var(--text-h3); font-weight: 500; }
+/* Sur mobile, le bouton Commander est collé en bas, au-dessus de la barre de navigation */
+@media (max-width: 767px) {
+  .action {
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    right: 0;
+    bottom: calc(64px + env(safe-area-inset-bottom));
+    padding: var(--space-3) var(--gutter);
+    border-top: 1px solid var(--color-line);
+    background: var(--color-white);
+  }
+  .grille { padding-bottom: 72px; }
+}

@@ -1,0 +1,14 @@
+.switch { display: inline-flex; align-items: center; color: var(--color-ink-muted); font-size: var(--text-small); }
+.switch button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 var(--space-1);
+  border: 0;
+  background: transparent;
+  color: var(--color-ink-muted);
+  font-size: var(--text-small);
+  font-weight: 400;
+  cursor: pointer;
+}
+.switch button[aria-pressed='true'] { color: var(--color-wine); font-weight: 500; }
+.switch button:hover { color: var(--color-wine); }

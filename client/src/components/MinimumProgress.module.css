@@ -1,0 +1,15 @@
+.progression { display: grid; gap: var(--space-2); font-size: var(--text-small); }
+.atteint { display: flex; align-items: center; gap: var(--space-2); color: var(--color-success); }
+.barre {
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--color-blush);
+  overflow: hidden;
+}
+.barre span {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: var(--color-red);
+  transition: width var(--transition);
+}

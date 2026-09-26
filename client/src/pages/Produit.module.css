@@ -1,0 +1,111 @@
+.fiche { display: grid; gap: var(--space-8); }
+@media (min-width: 1024px) {
+  .fiche { grid-template-columns: 3fr 2fr; gap: var(--space-12); align-items: start; }
+}
+
+/* --- Galerie ------------------------------------------------------------------ */
+.galerie { display: grid; gap: var(--space-3); }
+@media (min-width: 1024px) { .galerie { position: sticky; top: calc(var(--header-h) + var(--space-6)); } }
+.imagePrincipale {
+  display: block;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-blush);
+}
+@media (min-width: 768px) and (max-width: 1023px) { .imagePrincipale { max-width: 560px; } }
+.imagePrincipale img, .imagePrincipale svg { width: 100%; height: 100%; object-fit: cover; }
+.miniatures { list-style: none; margin: 0; padding: 0; display: flex; gap: var(--space-2); overflow-x: auto; }
+.miniature {
+  display: block;
+  width: 64px;
+  aspect-ratio: 4 / 5;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--color-blush);
+  cursor: pointer;
+}
+.miniature[aria-pressed='true'] { border-color: var(--color-wine); }
+.miniature img { width: 100%; height: 100%; object-fit: cover; }
+
+/* --- Informations --------------------------------------------------------------- */
+.infos { display: grid; gap: var(--space-3); align-content: start; }
+.categorie { color: var(--color-ink-muted); text-decoration: none; justify-self: start; }
+.categorie:hover { color: var(--color-wine); }
+.prix { font-size: var(--text-h3); color: var(--color-ink); }
+.description { color: var(--color-ink); }
+
+.formulaire { display: grid; gap: var(--space-6); margin-top: var(--space-3); }
+
+.variantes { border: 0; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+.variantes legend, .etiquette { margin-bottom: var(--space-2); font-size: var(--text-small); font-weight: 500; }
+.pastilles { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.pastille {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 56px;
+  min-width: 96px;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: border-color var(--transition), background-color var(--transition);
+}
+.pastille input { position: absolute; opacity: 0; pointer-events: none; }
+.pastille:hover { border-color: var(--color-wine); }
+.pastille:has(input:checked) { border-color: var(--color-wine); background: var(--color-blush); color: var(--color-wine); }
+.pastille:has(input:focus-visible) { outline: 2px solid var(--color-red); outline-offset: 2px; }
+.pastille span:first-of-type { font-weight: 500; }
+.pastillePrix { font-size: var(--text-small); font-variant-numeric: tabular-nums; }
+
+.quantite { display: grid; justify-items: start; }
+.delai { display: flex; align-items: center; gap: var(--space-2); color: var(--color-ink-muted); font-size: var(--text-small); }
+
+/* Barre d'ajout : collée en bas sur mobile, au-dessus de la barre de navigation */
+.barreAjout {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.barreAjout :global(.btn) { flex: 1; }
+.prixBarre { white-space: nowrap; }
+@media (max-width: 767px) {
+  .barreAjout {
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    right: 0;
+    bottom: calc(64px + env(safe-area-inset-bottom));
+    padding: var(--space-3) var(--gutter);
+    border-top: 1px solid var(--color-line);
+    background: var(--color-white);
+  }
+  /* Laisse la place à la barre d'ajout en bas de la fiche */
+  .fiche { padding-bottom: calc(var(--space-16) + 72px); }
+}
+@media (min-width: 768px) { .prixBarre { display: none; } .barreAjout :global(.btn) { flex: 0 1 auto; min-width: 280px; } }
+
+/* --- Sections repliables ------------------------------------------------------- */
+.sections { margin-top: var(--space-6); border-top: 1px solid var(--color-line); }
+.section { border-bottom: 1px solid var(--color-line); }
+.section summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 56px;
+  color: var(--color-wine);
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;
+}
+.section summary::-webkit-details-marker { display: none; }
+.section summary svg { transition: transform var(--transition); }
+.section[open] summary svg { transform: rotate(180deg); }
+.sectionCorps { display: grid; gap: var(--space-3); padding-bottom: var(--space-4); }
+.avertissement { color: var(--color-ink-muted); font-size: var(--text-small); }

@@ -1,0 +1,48 @@
+.panneau {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-white);
+  overflow-y: auto;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.haut {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-h);
+  border-bottom: 1px solid var(--color-line);
+}
+.logo { height: 28px; width: auto; }
+.liens { list-style: none; margin: 0; padding: var(--space-4) 0; }
+.liens a {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  color: var(--color-wine);
+  font-size: var(--text-h2);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-line);
+}
+.liens a.actif { color: var(--color-red); }
+.bas {
+  margin-top: auto;
+  display: grid;
+  gap: var(--space-4);
+  justify-items: start;
+  padding-block: var(--space-6) var(--space-8);
+}
+.compte { display: grid; gap: var(--space-3); width: 100%; }
+.utilisateur {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 48px;
+  color: var(--color-ink);
+  font-weight: 500;
+  text-decoration: none;
+}

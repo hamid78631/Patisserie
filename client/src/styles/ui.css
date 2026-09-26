@@ -1,0 +1,143 @@
+/*
+ * Éléments d'interface partagés (STYLE.md §7) : boutons, puces, champs, squelettes.
+ * Uniquement à partir des jetons de tokens.css.
+ */
+
+/* --- Boutons --------------------------------------------------------------- */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  padding: 0 var(--space-6);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: var(--text-body);
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition), border-color var(--transition);
+}
+.btn-primary { background: var(--color-red); color: var(--color-white); }
+.btn-primary:hover { background: var(--color-red-hover); color: var(--color-white); }
+.btn-secondary { background: var(--color-white); border-color: var(--color-wine); color: var(--color-wine); }
+.btn-secondary:hover { background: var(--color-blush); color: var(--color-wine); }
+.btn-ghost {
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  background: transparent;
+  color: var(--color-wine);
+}
+.btn-ghost:hover { text-decoration: underline; color: var(--color-wine); }
+.btn-block { width: 100%; }
+.btn:disabled, .btn[aria-disabled='true'] { opacity: .4; cursor: not-allowed; }
+
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition);
+}
+.icon-btn:hover { background: var(--color-surface); }
+
+/* --- Puces (catégories, filtres) ------------------------------------------ */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  color: var(--color-ink);
+  font-size: var(--text-small);
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--transition), border-color var(--transition), color var(--transition);
+}
+.chip:hover { border-color: var(--color-wine); color: var(--color-wine); }
+.chip[aria-current='page'], .chip[aria-pressed='true'] {
+  border-color: var(--color-wine);
+  background: var(--color-blush);
+  color: var(--color-wine);
+}
+
+/* --- Champs de formulaire (STYLE.md §7.3) --------------------------------- */
+.field { display: grid; gap: var(--space-2); }
+.field label { font-size: var(--text-small); font-weight: 500; color: var(--color-ink); }
+.field .help { font-size: var(--text-small); color: var(--color-ink-muted); }
+.input {
+  width: 100%;
+  min-height: 48px;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-size: var(--text-body);
+  transition: border-color var(--transition);
+}
+.input::placeholder { color: var(--color-ink-muted); }
+.input:focus-visible { border-color: var(--color-wine); }
+textarea.input { min-height: 96px; resize: vertical; line-height: 1.5; }
+.input[aria-invalid='true'] { border-color: var(--color-red); }
+.field-error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  color: var(--color-red);
+  font-size: var(--text-small);
+}
+
+/* --- Messages ---------------------------------------------------------------- */
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-small);
+  line-height: 1.5;
+}
+.notice svg { flex-shrink: 0; margin-top: 1px; }
+.notice-success { background: var(--color-success-bg); color: var(--color-success); }
+.notice-warning { background: var(--color-warning-bg); color: var(--color-warning); }
+.notice-error { background: var(--color-danger-bg); color: var(--color-wine); }
+.notice-info { background: var(--color-surface); color: var(--color-ink); }
+
+/* --- Squelettes de chargement : pulsation d'opacité très légère ------------ */
+.skeleton {
+  display: block;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  animation: pulsation 1.6s ease-in-out infinite;
+}
+@keyframes pulsation {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .55; }
+}
+
+/* --- Mise en page -------------------------------------------------------------- */
+.page { padding-block: var(--space-8) var(--space-16); }
+@media (min-width: 1024px) { .page { padding-block: var(--space-12) var(--space-24); } }
+.page-title { margin-bottom: var(--space-6); }
+.section { padding-block: var(--space-12); }
+@media (min-width: 1024px) { .section { padding-block: var(--space-16); } }
+.section-title { margin-bottom: var(--space-6); }
+.prose { max-width: var(--container-text); }
+.prose p + p { margin-top: var(--space-4); }
