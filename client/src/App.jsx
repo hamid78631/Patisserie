@@ -11,6 +11,8 @@ import Boutique from './pages/Boutique.jsx';
 import Produit from './pages/Produit.jsx';
 import CartesCadeaux from './pages/CartesCadeaux.jsx';
 import Panier from './pages/Panier.jsx';
+import Paiement from './pages/Paiement.jsx';
+import Commande from './pages/Commande.jsx';
 import Bientot from './pages/Bientot.jsx';
 import Introuvable from './pages/Introuvable.jsx';
 
@@ -27,8 +29,8 @@ export default function App() {
         <Route path="produit/:slug" element={<Produit />} />
         <Route path="cartes-cadeaux" element={<CartesCadeaux />} />
         <Route path="panier" element={<Panier />} />
-        <Route path="paiement" element={<Bientot titre="pages.checkout" />} />
-        <Route path="commande/:numero" element={<Bientot titre="pages.order" />} />
+        <Route path="paiement" element={<Paiement />} />
+        <Route path="commande/:numero" element={<Commande />} />
         <Route path="compte" element={<Bientot titre="pages.account" />} />
         <Route path="compte/connexion" element={<Bientot titre="pages.login" />} />
         <Route path="compte/inscription" element={<Bientot titre="pages.register" />} />

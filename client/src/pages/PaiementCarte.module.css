@@ -1,0 +1,15 @@
+.page { display: grid; gap: var(--space-4); max-width: calc(560px + 2 * var(--gutter)); }
+.formulaire { display: grid; gap: var(--space-4); margin-top: var(--space-4); }
+@media (max-width: 767px) {
+  .barre {
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    right: 0;
+    bottom: calc(64px + env(safe-area-inset-bottom));
+    padding: var(--space-3) var(--gutter);
+    border-top: 1px solid var(--color-line);
+    background: var(--color-white);
+  }
+  .page { padding-bottom: calc(var(--space-16) + 72px); }
+}

@@ -450,7 +450,7 @@ Coûts mensuels estimés : Render ~7 $ US, Twilio quelques $, le reste gratuit ;
 | 1 | API Express : modèles, catalogue, commandes, Stripe, Interac, promos, cartes-cadeaux, admin, tests | ✅ Fait |
 | 2 | Identité visuelle : tokens CSS, logo SVG, illustrations de remplacement | ✅ Fait |
 | 3 | Frontend public : structure, i18n, catalogue, fiche produit, panier | ✅ Fait |
-| 4 | Paiement : checkout, Stripe Payment Element, Interac, confirmation et suivi, annulation | À faire |
+| 4 | Paiement : checkout, Stripe Payment Element, Interac, confirmation et suivi, annulation | ✅ Fait en mode simulé (vrai Stripe à valider avec des clés de test) |
 | 5 | Comptes clients | À faire |
 | 6 | Tableau de bord admin (section 10) + améliorations backend (13.4) | À faire |
 | 7 | Pages légales, FAQ, SEO, accessibilité | À faire |
@@ -482,7 +482,9 @@ Choix d'une date par le client dans un calendrier avec capacité maximale par jo
 - *Étape 3 — coordonnées* : le pied de page et les données structurées utilisent les réglages publics de l'API (courriel, téléphone, réseaux, permis MAPAQ) ; `client/src/config/brand.js` sert de repli tant qu'ils ne sont pas renseignés.
 - *Étape 3 — avatar* : initiales seulement (pas de photo de profil en v1).
 - *Étape 3 — panier* : l'aperçu (nom, image, prix indicatif) est gardé dans le navigateur pour un affichage immédiat ; les prix affichés sont remplacés par ceux recalculés par le serveur (`/api/cart/quote`) dès qu'ils arrivent. Le bouton Commander est désactivé si les commandes sont fermées ou si le minimum (hors cartes-cadeaux) n'est pas atteint.
-- *Étape 3 — pages à venir* : paiement, suivi de commande, comptes et pages légales affichent « Bientôt disponible » jusqu'à leur étape.
+- *Étape 3 — pages à venir* : comptes et pages légales affichent « Bientôt disponible » jusqu'à leur étape.
+- *Étape 4 — paiement* : Stripe.js n'est chargé que lorsqu'un vrai paiement par carte est nécessaire (jamais en mode simulé). Le bouton de paiement est désactivé si les commandes sont fermées ou si le minimum n'est pas atteint (montant manquant affiché). Les derniers liens de suivi sont gardés dans le navigateur (`patisserie-commandes`) pour les clients invités.
+- *Étape 4 — suivi* : les instructions Interac s'affichent en premier (c'est l'action attendue du client), avec boutons « Copier » pour l'adresse et le numéro de commande.
 
 - *Audit du backend (avant l'étape 3)* : 3 bugs corrigés (lien de suivi sans jeton dans les courriels, carte-cadeau encore valide après annulation remboursée, administratrice retirée gardant l'accès), plus erreurs Stripe lisibles, statistiques nettes des remboursements, carte-cadeau de paiement non recréditée lors d'une annulation sans remboursement, promotion d'un compte client refusée. Voir 13.3.
 
