@@ -185,6 +185,7 @@
 
 /* --- Bandeau d'informations -------------------------------------------------- */
 .chiffres { padding: var(--space-8) var(--gutter); background: var(--gradient-wine); }
+@media (min-width: 1024px) { :global(.section):has(.carrousel) { padding-block: var(--space-24); } }
 .chiffresInterieur {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -387,7 +388,7 @@
 
 @media (max-width: 767px) {
   /* Haut de page compact */
-  .heroInterieur { padding-block: var(--space-6) var(--space-8); gap: 0; }
+  .heroInterieur { padding-block: var(--space-6) var(--space-12); gap: 0; }
   .etiquette { margin-bottom: var(--space-3); padding: 5px 12px; font-size: 0.7rem; }
   .titre { margin-bottom: var(--space-3); font-size: 1.9rem; line-height: 1.15; }
   .chapeau { margin-bottom: var(--space-5, 20px); padding-left: 12px; font-size: 0.95rem; line-height: 1.55; }
@@ -396,11 +397,11 @@
   .recherche input { min-height: 42px; font-size: 16px; }
   .recherche button { min-height: 42px; padding: 0 var(--space-4); font-size: 0.9rem; }
   .lienComment { display: none; }
-  .raccourcis { margin-top: var(--space-6); }
+  .raccourcis { margin-top: var(--space-8); }
 
   /* Bandeau d'informations : 2 × 2, icône à gauche */
-  .chiffres { padding: var(--space-6) var(--gutter); }
-  .chiffresInterieur { gap: var(--space-4) var(--space-3); }
+  .chiffres { padding: var(--space-8) var(--gutter); }
+  .chiffresInterieur { gap: var(--space-6) var(--space-3); }
   .chiffresInterieur li {
     display: grid;
     grid-template-columns: 36px minmax(0, 1fr);
@@ -420,7 +421,7 @@
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: baseline;
     column-gap: var(--space-3);
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-6);
     text-align: left;
   }
   .titreSection, .titrePourquoi { margin: 0; font-size: 1.35rem; }
@@ -436,7 +437,7 @@
     text-decoration: none;
   }
   .voirTout { display: none; }
-  :global(.section):has(.carrousel) { padding-block: var(--space-8); }
+  :global(.section):has(.carrousel) { padding-block: 56px; }
 
   /* Produits en carrousel horizontal */
   .carrousel > ul {
@@ -453,8 +454,8 @@
   .carrousel > ul > li { flex: 0 0 44%; scroll-snap-align: start; }
 
   /* Comment ça marche : liste compacte reliée par des pointillés */
-  .comment { padding-block: var(--space-8); }
-  .etapes { position: relative; gap: var(--space-6); }
+  .comment { padding-block: 56px; }
+  .etapes { position: relative; gap: var(--space-8); }
   .etapes::before {
     content: '';
     position: absolute;
@@ -471,16 +472,16 @@
   .texteEtape { max-width: none; font-size: 0.85rem; line-height: 1.5; }
 
   /* Pourquoi nous : 4 bulles compactes, sans la grande bulle */
-  .pourquoi { padding-block: var(--space-8); }
-  .pourquoi .enteteSection { margin-bottom: var(--space-6); }
+  .pourquoi { padding-block: 56px 64px; }
+  .pourquoi .enteteSection { margin-bottom: var(--space-8); }
   .grandeBulle { display: none; }
-  .raisons { gap: var(--space-4) var(--space-3); }
+  .raisons { gap: var(--space-6) var(--space-4); }
   .raison { width: min(136px, 38vw); gap: var(--space-2); padding: 14px; }
   .raisonIcone svg { width: 22px; height: 22px; }
   .raisonTitre { font-size: 0.74rem; }
 
   /* Appel à l'action */
-  .cta { padding-block: var(--space-8) var(--space-12); }
+  .cta { padding-block: 64px 72px; }
   .cta .titreSection { font-size: 1.35rem; }
   .cta .sousTitre { font-size: 0.9rem; }
   .ctaIcone { width: 36px; height: 36px; margin-bottom: var(--space-3); }
@@ -505,5 +506,5 @@
   }
 }
 @media (max-width: 767px) {
-  .heroInterieur { padding-top: var(--space-6); gap: var(--space-2); }
+  .heroInterieur { padding-top: var(--space-6); gap: var(--space-4); }
 }
