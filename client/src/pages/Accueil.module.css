@@ -58,6 +58,7 @@
   width: 100%;
   height: 100%;
 }
+.connecteurCompact { display: none; }
 .connecteur path { stroke: var(--wine-tint-strong); stroke-width: 2.5; stroke-dasharray: 7 5; vector-effect: non-scaling-stroke; }
 .bulle {
   position: absolute;
@@ -97,7 +98,6 @@
 
 /* Texte du haut de page */
 .heroTexte { display: flex; flex-direction: column; align-items: flex-start; }
-@media (max-width: 1023px) { .heroTexte { order: -1; } }
 .etiquette { display: inline-flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); }
 .titre {
   margin-bottom: var(--space-4);
@@ -339,7 +339,6 @@
 .toutVoir { display: none; }
 
 @media (max-width: 1023px) {
-  .bulles { display: none; }
   .raccourcis { display: block; width: 100%; margin-top: var(--space-8); }
   .raccourcis ul {
     display: flex;
@@ -486,4 +485,25 @@
   .cta .sousTitre { font-size: 0.9rem; }
   .ctaIcone { width: 36px; height: 36px; margin-bottom: var(--space-3); }
   .ctaBouton { width: 100%; margin-top: var(--space-6); }
+}
+
+/* Bulles flottantes au-dessus du titre, en disposition horizontale compacte */
+@media (max-width: 1023px) {
+  .heroInterieur { gap: var(--space-4); }
+  .bulles { max-width: 520px; aspect-ratio: 343 / 250; }
+  .bulles::before { top: 6%; left: 0; width: 64%; height: 86%; }
+  .bulles::after { top: 60%; right: 4%; width: 16%; border-width: 2px; }
+  .connecteurLarge { display: none; }
+  .connecteurCompact { display: block; }
+  .bulle { box-shadow: 0 10px 28px rgba(42, 18, 21, 0.16); }
+  .bulle1 { top: 0; left: 4%; width: 46%; border-width: 5px; }
+  .bulle2 { top: auto; bottom: 0; left: 36%; width: 30%; border-width: 4px; }
+  .bulle3 { top: 8%; right: 2%; left: auto; width: 38%; border-width: 4px; }
+  @keyframes flotte {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+}
+@media (max-width: 767px) {
+  .heroInterieur { padding-top: var(--space-6); gap: var(--space-2); }
 }

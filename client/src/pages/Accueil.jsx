@@ -78,9 +78,14 @@ export default function Accueil() {
       <section className={styles.hero}>
         <div className={`container ${styles.heroInterieur}`}>
           <div className={styles.bulles} aria-hidden="true">
-            <svg className={styles.connecteur} viewBox="0 0 460 640" fill="none" preserveAspectRatio="none">
+            <svg className={`${styles.connecteur} ${styles.connecteurLarge}`} viewBox="0 0 460 640" fill="none" preserveAspectRatio="none">
               <path d="M 165 155 C 125 300 110 420 105 535" />
               <path d="M 165 155 C 250 210 300 270 335 320" />
+            </svg>
+            {/* Téléphone et tablette : bulles disposées à l'horizontale */}
+            <svg className={`${styles.connecteur} ${styles.connecteurCompact}`} viewBox="0 0 343 250" fill="none" preserveAspectRatio="none">
+              <path d="M 93 79 C 105 150 140 185 175 198" />
+              <path d="M 93 79 C 160 30 225 50 271 85" />
             </svg>
             <div className={`${styles.bulle} ${styles.bulle1}`}>
               <Gateau />
