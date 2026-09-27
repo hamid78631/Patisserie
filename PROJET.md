@@ -255,7 +255,7 @@ Les URL restent en français, même en anglais.
 En-tête (logo, navigation, sélecteur de langue, compte, icône panier avec compteur), pied de page (coordonnées, liens légaux, réseaux, mention « Prix en dollars canadiens », numéro de permis MAPAQ si renseigné), bannière « commandes fermées », notifications (toasts), états de chargement (squelettes) et d'erreur.
 
 ### 9.4 Mode simulé
-Si `GET /api/settings` renvoie `paymentsMode: 'mock'`, la réponse de `POST /api/orders` a `clientSecret: null` et la commande est déjà `received` : ne pas monter Stripe, aller directement à la page de suivi. Afficher un petit bandeau « Mode test : aucun paiement réel ».
+Si `GET /api/settings` renvoie `paymentsMode: 'mock'`, la réponse de `POST /api/orders` a `clientSecret: null` et la commande est déjà `received` : ne pas monter Stripe, aller directement à la page de suivi. ~~Afficher un petit bandeau « Mode test : aucun paiement réel ».~~ Bandeau retiré à la demande de Hamid (septembre 2026).
 
 ---
 
