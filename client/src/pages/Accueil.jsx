@@ -5,25 +5,26 @@
  */
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { CakeSlice, Clock, CreditCard, HandHeart, Search, ShieldCheck, Sparkles, Truck } from 'lucide-react';
+import { CakeSlice, ChevronRight, Clock, CreditCard, HandHeart, Search, ShieldCheck, Sparkles, Truck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Croissant, Gateau, Macarons } from '../assets/illustrations/index.js';
+import { Croissant, Gateau, Macarons, illustrationPour } from '../assets/illustrations/index.js';
 import imageCommander from '../assets/pawcare/commander.webp';
 import imageAppel from '../assets/pawcare/appel.webp';
 import imageCueillette from '../assets/pawcare/cueillette.webp';
 import { brand } from '../config/brand.js';
 import ProductGrid from '../components/ProductGrid.jsx';
-import { useProducts, useSettings } from '../hooks/queries.js';
+import { useCategories, useProducts, useSettings } from '../hooks/queries.js';
 import { usePageMeta } from '../hooks/usePageMeta.js';
 import { useFormat } from '../lib/format.js';
 import styles from './Accueil.module.css';
 
 export default function Accueil() {
   const { t } = useTranslation();
-  const { money } = useFormat();
+  const { money, text } = useFormat();
   const naviguer = useNavigate();
   const [recherche, setRecherche] = useState('');
   const { data: settings } = useSettings();
+  const { data: categories } = useCategories();
   const vedettes = useProducts({ featured: true });
   const saisonniers = useProducts({ seasonal: true });
 
@@ -128,6 +129,25 @@ export default function Accueil() {
             <a href="#comment-ca-marche" className={styles.lienComment}>
               {t('home.ctaHow')} →
             </a>
+
+            {/* Mobile et tablette : raccourcis vers les catégories, à la manière d'une application */}
+            <nav className={styles.raccourcis} aria-label={t('home.categoriesLabel')}>
+              <ul>
+                {categories?.map((c) => {
+                  const Illustration = illustrationPour({ slugCategorie: c.slug });
+                  return (
+                    <li key={c._id}>
+                      <Link to={`/boutique/${c.slug}`}>
+                        <span className={styles.raccourciBulle}>
+                          <Illustration />
+                        </span>
+                        {text(c.name)}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
           </div>
         </div>
       </section>
@@ -155,8 +175,13 @@ export default function Accueil() {
               {t('home.featured')}
             </h2>
             <p className={styles.sousTitre}>{t('home.featuredLead')}</p>
+            <Link to="/boutique" className={styles.toutVoir}>
+              {t('home.seeAll')} <ChevronRight size={16} aria-hidden="true" />
+            </Link>
           </div>
-          <ProductGrid products={vedettes.data?.slice(0, 4) || []} loading={vedettes.isLoading} />
+          <div className={styles.carrousel}>
+            <ProductGrid products={vedettes.data?.slice(0, 4) || []} loading={vedettes.isLoading} />
+          </div>
           <div className={styles.voirTout}>
             <Link to="/boutique" className="btn btn-secondary">
               {t('home.seeShop')}
@@ -183,14 +208,16 @@ export default function Accueil() {
               <div className={`${styles.forme} ${styles[`forme${i + 1}`]}`}>
                 <img src={image} alt="" width="360" height="260" loading="lazy" decoding="async" />
               </div>
-              <span className={styles.numero} aria-hidden="true">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <h3 className={styles.titreEtape}>
-                <span className="visually-hidden">{i + 1}. </span>
-                {t(titre)}
-              </h3>
-              <p className={styles.texteEtape}>{t(texte)}</p>
+              <div className={styles.texteBloc}>
+                <span className={styles.numero} aria-hidden="true">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <h3 className={styles.titreEtape}>
+                  <span className="visually-hidden">{i + 1}. </span>
+                  {t(titre)}
+                </h3>
+                <p className={styles.texteEtape}>{t(texte)}</p>
+              </div>
             </li>
           ))}
           </ol>
@@ -207,7 +234,9 @@ export default function Accueil() {
               </h2>
               <p className={styles.sousTitre}>{t('home.seasonalLead')}</p>
             </div>
-            <ProductGrid products={saisonniers.data} />
+            <div className={styles.carrousel}>
+              <ProductGrid products={saisonniers.data} />
+            </div>
           </div>
         </section>
       )}

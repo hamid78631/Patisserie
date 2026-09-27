@@ -101,7 +101,9 @@
     "why3": "Paiement sécurisé",
     "why4": "Livraison ou cueillette",
     "ctaTitle": "Une envie de douceur ?",
-    "ctaText": "Choisissez vos pâtisseries en ligne, nous vous appelons pour convenir de la date."
+    "ctaText": "Choisissez vos pâtisseries en ligne, nous vous appelons pour convenir de la date.",
+    "categoriesLabel": "Catégories",
+    "seeAll": "Tout voir"
   },
   "shop": {
     "title": "Boutique",

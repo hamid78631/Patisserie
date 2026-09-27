@@ -101,7 +101,9 @@
     "why3": "Secure payment",
     "why4": "Delivery or pickup",
     "ctaTitle": "Craving something sweet?",
-    "ctaText": "Choose your pastries online, and we will call you to set the date."
+    "ctaText": "Choose your pastries online, and we will call you to set the date.",
+    "categoriesLabel": "Categories",
+    "seeAll": "See all"
   },
   "shop": {
     "title": "Shop",
