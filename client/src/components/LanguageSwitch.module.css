@@ -12,3 +12,7 @@
 }
 .switch button[aria-pressed='true'] { color: var(--color-wine); font-weight: 500; }
 .switch button:hover { color: var(--color-wine); }
+.switch button[aria-pressed='true'] { font-weight: 800; }
+/* Sur fond bordeaux (en-tête, menu mobile) */
+.sombre, .sombre button { color: var(--on-dark-muted); }
+.sombre button[aria-pressed='true'], .sombre button:hover { color: var(--color-white); }

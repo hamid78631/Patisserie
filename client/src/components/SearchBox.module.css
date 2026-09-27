@@ -11,15 +11,16 @@
   width: 100%;
   height: 44px;
   padding: 0 var(--space-4) 0 44px;
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
   border-radius: var(--radius-full);
-  background: var(--color-surface);
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
   color: var(--color-ink);
   font-size: var(--text-body);
   transition: border-color var(--transition);
 }
 .champ::placeholder { color: var(--color-ink-muted); }
-.champ:focus-visible { border-color: var(--color-wine); }
+.champ:focus-visible { border-color: var(--color-red); outline: none; box-shadow: 0 0 0 4px var(--on-dark-line); }
 .champ::-webkit-search-cancel-button { cursor: pointer; }
 
 .menu {
@@ -30,9 +31,10 @@
   right: 0;
   padding: var(--space-2);
   border: 1px solid var(--color-line);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   background: var(--color-white);
   box-shadow: var(--shadow);
+  color: var(--color-ink);
 }
 .menu ul { list-style: none; margin: 0; padding: 0; }
 .option {
@@ -55,7 +57,7 @@
   background: var(--color-blush);
 }
 .vignette img, .vignette svg { width: 100%; height: 100%; object-fit: cover; }
-.nom { color: var(--color-ink); font-size: var(--text-small); font-weight: 500; }
+.nom { color: var(--color-ink); font-size: var(--text-small); font-weight: 700; }
 .prix { color: var(--color-ink); font-size: var(--text-small); }
 .vide { padding: var(--space-3); color: var(--color-ink-muted); font-size: var(--text-small); }
 .tout { width: 100%; justify-content: center; }

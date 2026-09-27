@@ -1,34 +1,59 @@
+/* Menu plein écran : dégradé bordeaux et cercles décoratifs (style PawCare) */
 .panneau {
   position: fixed;
   inset: 0;
   z-index: 50;
   display: flex;
   flex-direction: column;
-  background: var(--color-white);
+  overflow-x: hidden;
   overflow-y: auto;
   padding-bottom: env(safe-area-inset-bottom);
+  background: var(--gradient-wine);
+  color: var(--color-white);
 }
+.panneau::before,
+.panneau::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: var(--on-dark-fill);
+  pointer-events: none;
+}
+.panneau::before { width: 320px; height: 320px; right: -120px; top: 80px; }
+.panneau::after { width: 220px; height: 220px; left: -90px; bottom: 60px; }
+.panneau > * { position: relative; z-index: 1; }
+.panneau :global(.icon-btn) { color: var(--color-white); }
+.panneau :global(.icon-btn:hover) { background: var(--on-dark-fill); }
+
 .haut {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: var(--header-h);
-  border-bottom: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--on-dark-line);
 }
 .logo { height: 28px; width: auto; }
 .liens { list-style: none; margin: 0; padding: var(--space-4) 0; }
 .liens a {
   display: flex;
   align-items: center;
-  min-height: 56px;
-  color: var(--color-wine);
+  min-height: 60px;
+  color: var(--color-white);
   font-size: var(--text-h2);
-  font-weight: 500;
-  letter-spacing: -0.01em;
+  font-weight: 800;
   text-decoration: none;
-  border-bottom: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--on-dark-line);
 }
-.liens a.actif { color: var(--color-red); }
+.liens a.actif { color: var(--color-blush); }
+.liens a.actif::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  margin-right: var(--space-3);
+  border-radius: 50%;
+  background: var(--color-red);
+  box-shadow: 0 0 0 3px var(--on-dark-line);
+}
 .bas {
   margin-top: auto;
   display: grid;
@@ -42,7 +67,9 @@
   align-items: center;
   gap: var(--space-3);
   min-height: 48px;
-  color: var(--color-ink);
-  font-weight: 500;
+  color: var(--color-white);
+  font-weight: 700;
   text-decoration: none;
 }
+.deconnexion { color: var(--color-white); justify-self: start; }
+.deconnexion:hover { color: var(--color-blush); }

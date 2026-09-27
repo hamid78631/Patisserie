@@ -5,7 +5,7 @@
  *   - client/public/ : favicon.svg, apple-touch-icon.png, icon-192.png, icon-512.png,
  *                      og-image.png, manifest.webmanifest
  *
- * Le texte du logo est vectorisé à partir de DM Sans 500 (@fontsource/dm-sans) :
+ * Le texte du logo est vectorisé à partir de Nunito 800 (@fontsource/nunito) :
  * aucune police n'est nécessaire pour afficher le logo.
  *
  * Usage : npm run marque   (à relancer si le nom de la boutique change)
@@ -97,7 +97,7 @@ function elementsCerise(mode) {
 /* Mot-symbole vectorisé                                                */
 /* ------------------------------------------------------------------ */
 async function chargerPolice() {
-  const fichier = require.resolve('@fontsource/dm-sans/files/dm-sans-latin-500-normal.woff');
+  const fichier = require.resolve('@fontsource/nunito/files/nunito-latin-800-normal.woff');
   const tampon = await readFile(fichier);
   return opentype.parse(tampon.buffer.slice(tampon.byteOffset, tampon.byteOffset + tampon.byteLength));
 }
@@ -172,19 +172,19 @@ function cheminChromium() {
   return candidats.find((c) => existsSync(c));
 }
 
-// DM Sans intégrée pour les légendes de la planche (rendu hors ligne)
+// Nunito intégrée pour les légendes de la planche (rendu hors ligne)
 let policeCss = '';
 async function chargerPoliceCss() {
-  const fichier = require.resolve('@fontsource/dm-sans/files/dm-sans-latin-400-normal.woff2');
+  const fichier = require.resolve('@fontsource/nunito/files/nunito-latin-400-normal.woff2');
   const base64 = (await readFile(fichier)).toString('base64');
-  policeCss = `@font-face{font-family:'DM Sans';font-weight:400;src:url(data:font/woff2;base64,${base64}) format('woff2')}`;
+  policeCss = `@font-face{font-family:'Nunito';font-weight:400;src:url(data:font/woff2;base64,${base64}) format('woff2')}`;
 }
 
 async function rendrePng(navigateur, html, largeur, hauteur, sortie) {
   const page = await navigateur.newPage({ viewport: { width: largeur, height: hauteur } });
   await page.setContent(`<!doctype html><html><head><meta charset="utf-8"><style>${policeCss}
     html,body{margin:0;padding:0;width:${largeur}px;height:${hauteur}px;overflow:hidden}
-    body,div{font-family:'DM Sans',sans-serif!important}
+    body,div{font-family:'Nunito',sans-serif!important}
   </style></head><body>${html}</body></html>`);
   await page.screenshot({ path: sortie, omitBackground: false });
   await page.close();
@@ -210,7 +210,7 @@ function htmlPlanche({ logo, logoBlanc, cerise, favicon }) {
   return `<div style="width:1600px;height:1010px;background:#FFFFFF;padding:72px;box-sizing:border-box;display:flex;flex-direction:column;gap:40px">
     <div style="display:flex;justify-content:space-between;align-items:baseline">
       <div style="font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:#6E5A5C">Planche de logo — ${brand.name}</div>
-      <div style="font-size:15px;color:#6E5A5C">Logo provisoire · DM Sans 500 vectorisé</div>
+      <div style="font-size:15px;color:#6E5A5C">Logo provisoire · Nunito 800 vectorisé</div>
     </div>
     <div style="display:grid;grid-template-columns:2fr 1fr;gap:32px">
       ${cadre(C.white, img(logo, 96), 'Logo principal — fond blanc')}

@@ -488,6 +488,8 @@ Choix d'une date par le client dans un calendrier avec capacité maximale par jo
 
 - *Audit du backend (avant l'étape 3)* : 3 bugs corrigés (lien de suivi sans jeton dans les courriels, carte-cadeau encore valide après annulation remboursée, administratrice retirée gardant l'accès), plus erreurs Stripe lisibles, statistiques nettes des remboursements, carte-cadeau de paiement non recréditée lors d'une annulation sans remboursement, promotion d'un compte client refusée. Voir 13.3.
 
+- *Refonte visuelle « style PawCare »* (demandée par Hamid) : police Nunito, pilules, dégradés, ombres et cercles décoratifs de PawCare, avec la palette de la pâtisserie (bordeaux, rouge vif, rose poudré). Logo régénéré en Nunito 800. Les GIF et illustrations de PawCare seront réutilisés là où ils ont du sens ; pas de photos d'animaux. Refonte composant par composant, validée au fur et à mesure (1 : fondations, en-tête, menu mobile, barre du bas, pied de page).
+
 **À trancher avec Hamid** :
 - *Carte-cadeau achetée par carte bancaire* : comme tout paiement Stripe, elle n'est débitée et envoyée qu'à la **confirmation par l'admin** (comportement conservé par défaut). Alternative : débit immédiat et envoi automatique quand le panier ne contient que des cartes-cadeaux.
 - *Recherche de l'en-tête* (STYLE.md §7.1) : l'API n'a pas de paramètre de recherche ; proposition : filtrer côté navigateur (catalogue petit).

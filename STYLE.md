@@ -3,6 +3,9 @@
 > Ce document complète **PROJET.md** : il décrit comment le site doit **paraître** et **se comporter**.
 > Pour tout ce qui touche au style, **ce document fait foi**.
 > Les fichiers du logo se trouvent dans `brand/`.
+>
+> **Refonte en cours (septembre 2026)** : à la demande de Hamid, le style est désormais **calqué sur le projet PawCare** (github.com/hamid78631/pawcare) : police **Nunito** (700–800 pour les titres), boutons et étiquettes en **pilules**, **dégradés**, **ombres**, cercles décoratifs, verre dépoli. La **palette reste celle de la pâtisserie** : le vert de PawCare devient **bordeaux**, l'orange des boutons devient **rouge vif**, le fond vert pâle devient **rose très pâle**. Les interdits de la section 13 sur les dégradés, les ombres et la police ne s'appliquent plus. La refonte se fait composant par composant ; les jetons à jour sont dans `client/src/styles/tokens.css`, qui fait foi.
+
 
 ---
 

@@ -19,16 +19,16 @@ export default function BottomNav() {
   return (
     <nav className={styles.barre} aria-label={t('nav.main')}>
       <NavLink to="/" end className={classe}>
-        <Home size={24} strokeWidth={1.5} aria-hidden="true" />
+        <Home size={24} strokeWidth={1.75} aria-hidden="true" />
         <span>{t('nav.home')}</span>
       </NavLink>
       <NavLink to="/boutique" className={classe}>
-        <CakeSlice size={24} strokeWidth={1.5} aria-hidden="true" />
+        <CakeSlice size={24} strokeWidth={1.75} aria-hidden="true" />
         <span>{t('nav.shop')}</span>
       </NavLink>
       <NavLink to="/panier" className={classe} aria-label={t('header.cart', { count })}>
         <span className={styles.icone}>
-          <ShoppingBag size={24} strokeWidth={1.5} aria-hidden="true" />
+          <ShoppingBag size={24} strokeWidth={1.75} aria-hidden="true" />
           {count > 0 && (
             <span className={styles.pastille} aria-hidden="true">
               {count > 99 ? '99+' : count}
@@ -38,7 +38,13 @@ export default function BottomNav() {
         <span aria-hidden="true">{t('nav.cart')}</span>
       </NavLink>
       <NavLink to={user ? '/compte' : '/compte/connexion'} className={classe}>
-        {user ? <Avatar user={user} size={24} /> : <User size={24} strokeWidth={1.5} aria-hidden="true" />}
+        {user ? (
+          <span className={styles.icone}>
+            <Avatar user={user} size={24} />
+          </span>
+        ) : (
+          <User size={24} strokeWidth={1.75} aria-hidden="true" />
+        )}
         <span>{t('nav.account')}</span>
       </NavLink>
     </nav>

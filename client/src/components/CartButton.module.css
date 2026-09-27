@@ -1,8 +1,26 @@
-.panier { position: relative; }
+.panier {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 44px;
+  height: 44px;
+  padding: 0 var(--space-2);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-white);
+  font-size: var(--text-small);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color var(--transition), transform var(--transition);
+}
+.libelle { display: none; }
 .pastille {
   position: absolute;
-  top: 4px;
-  right: 2px;
+  top: 2px;
+  right: 0;
   min-width: 18px;
   height: 18px;
   padding: 0 5px;
@@ -10,8 +28,15 @@
   background: var(--color-red);
   color: var(--color-white);
   font-size: var(--text-overline);
-  font-weight: 600;
+  font-weight: 800;
   line-height: 18px;
   text-align: center;
   font-variant-numeric: tabular-nums;
+}
+/* Ordinateur : pilule rouge avec libellé, le nombre dans une pastille blanche */
+@media (min-width: 1024px) {
+  .panier { padding: 0 var(--space-4) 0 var(--space-4); height: 40px; background: var(--color-red); box-shadow: var(--shadow-red); }
+  .panier:hover { background: var(--color-red-hover); transform: translateY(-1px); }
+  .libelle { display: inline; }
+  .pastille { position: static; background: var(--color-white); color: var(--color-red); }
 }

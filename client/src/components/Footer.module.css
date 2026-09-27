@@ -1,11 +1,27 @@
+/* Pied de page : dégradé rouge et cercles décoratifs (comme le pied orange de PawCare) */
 .pied {
-  background: var(--color-wine);
-  color: var(--color-white);
+  position: relative;
+  overflow: hidden;
   padding-top: var(--space-12);
+  background: var(--gradient-red);
+  color: var(--color-white);
 }
-.pied a { color: var(--color-white); text-decoration: none; }
-.pied a:hover { text-decoration: underline; color: var(--color-white); }
-/* Sur fond bordeaux, le contour de focus rouge ne serait pas visible : contour blanc */
+.pied::before,
+.pied::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+/* Grand cercle en haut à droite */
+.pied::before { right: -80px; top: -90px; width: 320px; height: 320px; background: var(--on-dark-fill); }
+/* Grand cercle en bas à gauche */
+.pied::after { left: 5%; bottom: -80px; width: 260px; height: 260px; background: rgba(255, 255, 255, .09); }
+.pied > * { position: relative; z-index: 1; }
+
+.pied a { color: var(--on-dark); text-decoration: none; transition: opacity var(--transition), color var(--transition); }
+.pied a:hover { color: var(--color-white); opacity: .75; }
+/* Sur fond rouge, contour de focus blanc */
 .pied a:focus-visible { outline-color: var(--color-white); }
 
 .grille {
@@ -20,18 +36,18 @@
   .marque, .coordonnees { grid-column: auto; }
 }
 
-.marque { display: grid; gap: var(--space-3); align-content: start; }
+.marque { display: grid; gap: var(--space-3); align-content: start; font-weight: 700; }
 .logo { height: 32px; width: auto; }
 .titre {
   margin-bottom: var(--space-3);
   color: var(--color-white);
   font-size: var(--text-overline);
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  font-weight: 800;
+  letter-spacing: .08em;
   text-transform: uppercase;
 }
 .pied ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-1); }
-.pied li a { display: inline-flex; align-items: center; min-height: 44px; }
+.pied li a { display: inline-flex; align-items: center; min-height: 40px; font-size: var(--text-small); font-weight: 600; }
 .contact { gap: var(--space-2); word-break: break-word; }
 .reseaux { display: flex; gap: var(--space-4); }
 
@@ -41,6 +57,7 @@
   gap: var(--space-2) var(--space-6);
   margin-top: var(--space-8);
   padding-block: var(--space-6);
-  border-top: 1px solid var(--color-wine-hover);
+  border-top: 1px solid var(--on-dark-line);
   font-size: var(--text-small);
+  font-weight: 700;
 }

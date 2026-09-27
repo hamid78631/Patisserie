@@ -1,14 +1,17 @@
 /*
- * Jetons de l'identité visuelle (STYLE.md §12).
- * Seul fichier où les couleurs, tailles et rayons sont écrits en dur :
- * pour changer toute la charte, modifier uniquement ce fichier.
+ * Jetons de l'identité visuelle.
+ * Style calqué sur le projet PawCare (Nunito, pilules, dégradés, ombres, cercles décoratifs)
+ * avec la palette de la pâtisserie : bordeaux à la place du vert, rouge vif à la place de l'orange.
+ * Seul fichier où les couleurs, dégradés et ombres sont écrits en dur.
  */
 :root {
   /* Couleurs de marque */
-  --color-red: #C8102E;
+  --color-red: #C8102E;          /* boutons d'action (orange de PawCare) */
   --color-red-hover: #A80D26;
-  --color-wine: #6B0F1A;
+  --color-wine: #6B0F1A;         /* couleur principale (vert de PawCare) */
   --color-wine-hover: #520B14;
+  --color-wine-dark: #3F0810;    /* départ des dégradés sombres */
+  --color-wine-light: #A3203A;   /* fin des dégradés sombres (vert clair de PawCare) */
   --color-blush: #F7E4E2;
   --color-white: #FFFFFF;
 
@@ -16,54 +19,68 @@
   --color-ink: #2A1215;
   --color-ink-muted: #6E5A5C;
   --color-line: #EEDFDD;
-  --color-surface: #FDF7F6;
+  --color-surface: #FDF7F6;      /* fond des pages (vert très pâle de PawCare) */
 
   /* Fonctionnelles */
   --color-success: #2E6B4F;  --color-success-bg: #E8F2EC;
   --color-warning: #8A5A00;  --color-warning-bg: #FBF1DE;
   --color-danger: #C8102E;   --color-danger-bg: #F7E4E2;
 
-  /* Voile des fenêtres modales (STYLE.md §7.9) */
-  --color-overlay: rgba(42, 18, 21, .4);
+  /* Transparences (texte et décors sur fonds sombres) */
+  --on-dark: rgba(255, 255, 255, .88);
+  --on-dark-muted: rgba(255, 255, 255, .7);
+  --on-dark-line: rgba(255, 255, 255, .22);
+  --on-dark-fill: rgba(255, 255, 255, .12);
+  --wine-tint: rgba(107, 15, 26, .08);
+  --wine-tint-strong: rgba(107, 15, 26, .18);
+  --color-overlay: rgba(42, 18, 21, .45);
 
-  /* Typographie */
-  --font-sans: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --text-display: clamp(2.25rem, 1.6rem + 3vw, 3.5rem);
-  --text-h1: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
-  --text-h2: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);
-  --text-h3: clamp(1.125rem, 1.08rem + 0.2vw, 1.25rem);
+  /* Dégradés (repris de PawCare) */
+  --gradient-wine: linear-gradient(135deg, var(--color-wine-dark) 0%, var(--color-wine) 55%, var(--color-wine-light) 100%);
+  --gradient-red: linear-gradient(135deg, #D6243F 0%, #A80D26 100%);
+  --gradient-hero: linear-gradient(150deg, #FBEDEB 0%, #FFF9F8 50%, #F9E8E6 100%);
+
+  /* Typographie : Nunito, titres très gras */
+  --font-sans: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --text-display: clamp(2.25rem, 1.5rem + 3.2vw, 3.2rem);
+  --text-h1: clamp(1.9rem, 1.5rem + 1.6vw, 2.5rem);
+  --text-h2: clamp(1.5rem, 1.3rem + 0.8vw, 1.9rem);
+  --text-h3: clamp(1.1rem, 1.05rem + 0.2vw, 1.2rem);
   --text-body: 1rem;
   --text-small: 0.875rem;
-  --text-overline: 0.75rem;
+  --text-overline: 0.78rem;
 
   /* Formes */
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 24px;
-  --radius-full: 999px;
-  --shadow: 0 1px 2px rgba(42, 18, 21, .06), 0 4px 16px rgba(42, 18, 21, .06);
+  --radius-sm: 10px;             /* champs */
+  --radius-md: 14px;             /* boutons carrés, petites cartes */
+  --radius-lg: 20px;             /* cartes */
+  --radius-xl: 28px;             /* grandes cartes, fenêtres */
+  --radius-full: 999px;          /* pilules */
+
+  /* Ombres (PawCare) */
+  --shadow-sm: 0 2px 12px rgba(42, 18, 21, .07);
+  --shadow: 0 8px 28px rgba(42, 18, 21, .12);
+  --shadow-lg: 0 24px 64px rgba(42, 18, 21, .25);
+  --shadow-nav: 0 2px 12px rgba(0, 0, 0, .15);
+  --shadow-red: 0 8px 24px rgba(200, 16, 46, .28);
 
   /* Espacements */
   --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
   --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px; --space-24: 96px;
 
-  --container: 1200px;
+  --container: 1152px;
   --container-text: 680px;
   --gutter: 16px;
-  --header-h: 72px;
-  --transition: 180ms ease-out;
+  --header-h: 64px;
+  --transition: 200ms ease-out;
 }
 
 @media (min-width: 768px) {
   :root { --gutter: 24px; }
 }
 
-@media (min-width: 1024px) {
-  :root { --gutter: 32px; }
-}
-
 @media (max-width: 767px) {
-  :root { --header-h: 56px; }
+  :root { --header-h: 58px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

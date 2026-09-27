@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 import { Link, NavLink } from 'react-router-dom';
 import { X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import logo from '../assets/brand/logo.svg';
+import logo from '../assets/brand/logo-white.svg';
 import { useMe } from '../hooks/queries.js';
 import { Avatar, useLogout } from './AccountButton.jsx';
 import LanguageSwitch from './LanguageSwitch.jsx';
@@ -49,13 +49,13 @@ export default function MobileMenu({ open, onClose }) {
               <span>{user.name || user.email}</span>
             </Link>
             {user.role === 'admin' && (
-              <Link to="/admin" onClick={onClose} className="btn btn-secondary">
+              <Link to="/admin" onClick={onClose} className="btn btn-primary">
                 {t('nav.dashboard')}
               </Link>
             )}
             <button
               type="button"
-              className="btn btn-ghost"
+              className={`btn btn-ghost ${styles.deconnexion}`}
               onClick={() => {
                 onClose();
                 logout();
@@ -65,11 +65,11 @@ export default function MobileMenu({ open, onClose }) {
             </button>
           </div>
         ) : (
-          <Link to="/compte/connexion" onClick={onClose} className="btn btn-secondary btn-block">
+          <Link to="/compte/connexion" onClick={onClose} className="btn btn-primary btn-block">
             {t('nav.login')}
           </Link>
         )}
-        <LanguageSwitch />
+        <LanguageSwitch sombre />
       </div>
     </div>,
     document.body,

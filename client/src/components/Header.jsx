@@ -1,5 +1,6 @@
 /*
- * En-tête collant (STYLE.md §7.1).
+ * En-tête collant, style PawCare : barre bordeaux ombrée, logo blanc, liens blancs,
+ * recherche en pilule blanche et panier en pilule rouge.
  * - Ordinateur (≥ 1024 px) : logo, navigation, recherche, FR·EN, compte, panier.
  * - Tablette (768–1023 px) : menu, logo, recherche, panier.
  * - Mobile (< 768 px) : menu, logo centré, loupe, panier.
@@ -8,7 +9,7 @@ import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Menu, Search } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import logo from '../assets/brand/logo.svg';
+import logo from '../assets/brand/logo-white.svg';
 import { brand } from '../config/brand.js';
 import { LIENS } from '../config/navigation.js';
 import AccountButton from './AccountButton.jsx';
@@ -50,7 +51,7 @@ export default function Header() {
             <Search size={24} strokeWidth={1.5} aria-hidden="true" />
           </button>
           <span className={styles.langue}>
-            <LanguageSwitch />
+            <LanguageSwitch sombre />
           </span>
           <span className={styles.compte}>
             <AccountButton />
